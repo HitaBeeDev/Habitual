@@ -7,7 +7,7 @@ function WeekDaysList() {
     const today = new Date();
     return new Date(today.getFullYear(), today.getMonth(), today.getDate());
   });
-  const [slideDirection, setSlideDirection] = useState("next"); // 'next' for next week, 'prev' for previous week
+  const [slideDirection, setSlideDirection] = useState("next");
 
   useEffect(() => {
     generateWeekDays();
@@ -17,12 +17,12 @@ function WeekDaysList() {
     const startOfWeek = new Date(currentWeekStart);
     startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
     const today = new Date();
-    const formattedToday = today.toDateString(); // Format today's date for comparison
+    const formattedToday = today.toDateString();
 
     const days = Array.from({ length: 7 }).map((_, index) => {
       const day = new Date(startOfWeek);
       day.setDate(day.getDate() + index);
-      const isToday = day.toDateString() === formattedToday; // Check if the day is today
+      const isToday = day.toDateString() === formattedToday;
       return {
         id: day.toISOString(),
         dayName: day

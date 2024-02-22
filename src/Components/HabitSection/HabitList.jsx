@@ -1,105 +1,78 @@
-import { useState } from "react";
-import WeekDaysList from "./WeekDaysList";
+import React, { useState } from "react";
 
-function HabitList() {
-  const [isCustomize, setIsCustomize] = useState(false);
+// Array of pastel colors and their related darker and similar colors
+const pastelColors = [
+  { pastel: "#FFC3A0", darker: "#E69A7C", similar: "#FFB47B" },
+  { pastel: "#FFACB7", darker: "#E78992", similar: "#FF9AA8" },
+  { pastel: "#A0E7E5", darker: "#7AC9C7", similar: "#9FE3E1" },
+  // Add more pastel colors here...
+];
 
-  const handleCustomizeClick = () => {
-    setIsCustomize(true);
+function HabitList({ habits }) {
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  const handleChecklistChange = (index) => {
+    const updatedCheckedItems = [...checkedItems];
+    if (updatedCheckedItems.includes(index)) {
+      updatedCheckedItems.splice(updatedCheckedItems.indexOf(index), 1);
+    } else {
+      updatedCheckedItems.push(index);
+    }
+    setCheckedItems(updatedCheckedItems);
   };
 
-  const handleDoneClick = () => {
-    setIsCustomize(false);
+  const getBackgroundColor = (index) => {
+    if (checkedItems.includes(index)) {
+      return pastelColors[index % pastelColors.length].pastel;
+    } else {
+      return "#FFFFFF"; // Default background color
+    }
   };
 
-  const currentDateFormatted = new Date().toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
+  const getCheckboxColor = (index) => {
+    if (checkedItems.includes(index)) {
+      return pastelColors[index % pastelColors.length].darker;
+    } else {
+      return "#000000"; // Default checkbox color
+    }
+  };
 
   return (
-    <>
-      {!isCustomize ? (
-        <div className="flex flex-col bg-colorC1 rounded-lg h-full shadow-xl">
-          <div className="flex flex-row items-center bg-colorC2">
-            <WeekDaysList />
-          </div>
-
-          <div className="bg-colorC5">
-            <div className="flex flex-row justify-between">
-              <p>Today is {currentDateFormatted}</p>
-
-              <div className="flex flex-row gap-5 items-center">
-                <button onClick={handleCustomizeClick}>CUSTOMIZE</button>
+    <div className="flex flex-col bg-colorC1 rounded-lg shadow-xl">
+      <div className="flex flex-row items-center bg-colorC2">
+        <h2>Habits:</h2>
+      </div>
+      <div className="flex flex-col">
+        <ul>
+          {habits.map((habit, index) => (
+            <li
+              key={index}
+              className="flex flex-row justify-between items-center"
+              style={{ backgroundColor: getBackgroundColor(index) }}
+            >
+              <div>
+                <input
+                  type="checkbox"
+                  id={`habit_${index}`}
+                  onChange={() => handleChecklistChange(index)}
+                  style={{ backgroundColor: getBackgroundColor(index) }}
+                />
+                <label htmlFor={`habit_${index}`}>{habit}</label>
               </div>
-            </div>
-
-            <div className="flex flex-col">
-              <ul>
-                <li className="flex flex-row justify-between bg-colorD1">
-                  <button>DONE!</button>
-                  <p>Workout!</p>
-                  <p>😀</p>
-                </li>
-
-                <li className="flex flex-row justify-between bg-colorD1">
-                  <button>DONE!</button>
-                  <p>Workout!</p>
-                  <p>😀</p>
-                </li>
-
-                <li className="flex flex-row justify-between bg-colorD1">
-                  <button>DONE!</button>
-                  <p>Workout!</p>
-                  <p>😀</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="flex flex-col bg-colorC1 rounded-lg h-full shadow-xl">
-          <div className="flex flex-row justify-between items-center p-4">
-            <input
-              type="text"
-              placeholder="Add new habit"
-              className="text-input"
-            />
-            <button>select color</button>
-            <button>ADD</button>
-            <button onClick={handleDoneClick}>DONE!</button>
-          </div>
-          <div className="flex flex-col p-4">
-            <ul>
-              <li className="flex flex-row justify-between items-center bg-colorD1 mb-2">
-                <button>DONE!</button>
-                <p>Workout!</p>
-                <p>😀</p>
-                <button>EDIT</button>
-                <button>DELETE</button>
-              </li>
-
-              <li className="flex flex-row justify-between items-center bg-colorD1 mb-2">
-                <button>DONE!</button>
-                <p>Workout!</p>
-                <p>😀</p>
-                <button>EDIT</button>
-                <button>DELETE</button>
-              </li>
-
-              <li className="flex flex-row justify-between items-center bg-colorD1 mb-2">
-                <button>DONE!</button>
-                <p>Workout!</p>
-                <p>😀</p>
-                <button>EDIT</button>
-                <button>DELETE</button>
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
-    </>
+              <p
+                style={{
+                  color: getCheckboxColor(index),
+                  fontSize: "24px",
+                  cursor: "pointer",
+                }}
+              >
+                😀
+              </p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
 

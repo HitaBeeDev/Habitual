@@ -21,7 +21,6 @@ function Container() {
       >
         <Sidebar isOpen={isOpen} setIsOpen={setIsOpen} />
       </div>
-
       <div
         className={`flex-grow flex justify-center transition-margin duration-300 ${contentMargin}`}
       >

@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function HabitTracker() {
   const [habits, setHabits] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1); // Index of the habit being edited
-  const [editValue, setEditValue] = useState(""); // Temporary storage for the edited habit name
+  const [editingIndex, setEditingIndex] = useState(-1);
+  const [editValue, setEditValue] = useState("");
   const [currentHabit, setCurrentHabit] = useState("");
   const [weekDates, setWeekDates] = useState([]);
 
@@ -113,7 +113,10 @@ function HabitTracker() {
           <p className="w-32 text-center bg-colorA2">CUSTOMIZE</p>
         </div>
 
-        <ul className="bg-colorB4 flex flex-col items-center text-center gap-5">
+        <ul
+          className="bg-colorB4 flex flex-col items-center text-center gap-5 overflow-y-auto"
+          style={{ maxHeight: "600px" }}
+        >
           {habits.map((habit, index) => (
             <div
               key={index}
@@ -143,7 +146,7 @@ function HabitTracker() {
                 </div>
               ))}
 
-              <div className="w-32 flex justify-center items-center">
+              <div className="w-16 flex justify-center items-center">
                 {editingIndex === index ? (
                   <>
                     <button onClick={handleCancelClick} className="mr-2">
@@ -155,8 +158,37 @@ function HabitTracker() {
                   <button onClick={() => handleEditClick(index)}>Edit</button>
                 )}
               </div>
+
+              <div className="w-16 flex justify-center items-center">
+                <p className="text-xs">STATUS OF HABIT</p>
+              </div>
             </div>
           ))}
+
+          <div className="flex flex-row justify-center items-center">
+            <p className="w-36 bg-colorD1">BOS</p>
+            {Array.from({ length: 7 }).map((_, index) => (
+              <p key={index} className="w-32 bg-colorD3">
+                STATUS OF DAY
+              </p>
+            ))}
+            <p className="w-32 bg-colorD4">BOS</p>
+          </div>
+
+          <div className="w-full grid grid-cols-4 gap-4 items-center">
+            <div className="bg-colorA1 text-xs p-2 text-center">
+              YOU HAVE DONE 5 OF 7 HABITS COMPLETELY
+            </div>
+            <div className="bg-colorD2 text-xs p-2 text-center">
+              BEST DAY OF THIS WEEK: TUESDAY
+            </div>
+            <div className="bg-colorD3 text-xs p-2 text-center">
+              BEST HABIT OF THE WEEK IS RUNNING
+            </div>
+            <div className="bg-colorD5 text-xs p-2 text-center">
+              TOTAL SCORE OF WEEK IS: 85%
+            </div>
+          </div>
         </ul>
       </div>
     </div>

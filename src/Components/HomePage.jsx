@@ -6,7 +6,6 @@ import ArticlesSection from "./ArticlesSection/ArticlesSection";
 import ReportWidgets from "./ReportsSection/ReportWidgets";
 
 function HomePage() {
-  // Define widgets and their grid column span sizes for a more dynamic layout
   const widgets = [
     { component: HabitWidget, colSpan: "lg:col-span-2" },
     { component: TasksWidget, colSpan: "lg:col-span-3" },

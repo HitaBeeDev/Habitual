@@ -1,86 +1,70 @@
-import { useEffect, useState } from "react";
+import { useHabits } from "../../ContextAPI/HabitContext";
 
 function HabitTracker() {
-  const [habits, setHabits] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(-1);
-  const [editValue, setEditValue] = useState("");
-  const [currentHabit, setCurrentHabit] = useState("");
-  const [weekDates, setWeekDates] = useState([]);
+  const {
+    habits,
+    weekDates,
+    currentHabit,
+    handleInputChange,
+    handleAddHabit,
+    toggleDay,
+    editingIndex,
+    editValue,
+    setEditValue,
+    handleEditClick,
+    handleCancelClick,
+    handleSaveClick,
+  } = useHabits();
 
-  useEffect(() => {
-    const getWeekDates = () => {
-      const now = new Date();
-      const firstDayOfWeek =
-        now.getDate() - now.getDay() + (now.getDay() === 0 ? -6 : 1); // Adjust to set Monday as first day of week
-      const week = [];
+  // Count habits with all days marked
+  const completedHabitsCount = habits.filter((habit) =>
+    habit.days.every((day) => day)
+  ).length;
 
-      for (let i = 0; i < 7; i++) {
-        let day = new Date(now.setDate(firstDayOfWeek + i));
-        week.push(day);
+  // Calculate completion status for each day
+  const dayCompletionStatus = Array(7).fill(0);
+  habits.forEach((habit) => {
+    habit.days.forEach((day, index) => {
+      if (day) {
+        dayCompletionStatus[index]++;
       }
-
-      return week.map((day) => ({
-        day: day
-          .toLocaleDateString("en-US", { weekday: "short" })
-          .toUpperCase(),
-        date: day.getDate(),
-        month: day
-          .toLocaleDateString("en-US", { month: "short" })
-          .toUpperCase(),
-        isToday: day.toDateString() === new Date().toDateString(),
-      }));
-    };
-
-    setWeekDates(getWeekDates());
-  }, []);
-
-  const handleInputChange = (event) => {
-    setCurrentHabit(event.target.value);
-  };
-
-  const handleAddHabit = () => {
-    if (currentHabit.trim() !== "") {
-      setHabits([
-        ...habits,
-        { name: currentHabit, days: Array(7).fill(false) },
-      ]);
-      setCurrentHabit("");
-    }
-  };
-
-  const toggleDay = (habitIndex, dayIndex) => {
-    const newHabits = habits.map((habit, index) => {
-      if (index === habitIndex) {
-        const newDays = habit.days.map((day, i) =>
-          i === dayIndex ? !day : day
-        );
-        return { ...habit, days: newDays };
-      }
-      return habit;
     });
-    setHabits(newHabits);
-  };
+  });
 
-  const handleEditClick = (index) => {
-    setEditingIndex(index);
-    setEditValue(habits[index].name);
-  };
+  const bestDayIndex = dayCompletionStatus.indexOf(
+    Math.max(...dayCompletionStatus)
+  );
 
-  const handleCancelClick = () => {
-    setEditingIndex(-1);
-    setEditValue("");
-  };
+  const bestDayOfWeek = weekDates[bestDayIndex]?.dayFull || "N/A";
 
-  const handleSaveClick = () => {
-    const updatedHabits = habits.map((habit, index) => {
-      if (index === editingIndex) {
-        return { ...habit, name: editValue };
+  const bestHabit = habits.reduce(
+    (best, habit) => {
+      const numOfMarkedBoxes = habit.days.filter((day) => day === true).length;
+      const completionPercentage = Math.ceil((numOfMarkedBoxes / 7) * 100);
+      if (completionPercentage > best.completionPercentage) {
+        return { habit, completionPercentage };
       }
-      return habit;
+      return best;
+    },
+    { habit: null, completionPercentage: -1 }
+  );
+
+  const sumPercentageOfDay = Array(7).fill(0);
+  habits.forEach((habit) => {
+    habit.days.forEach((day, index) => {
+      if (day) {
+        sumPercentageOfDay[index] += Math.ceil((1 / habits.length) * 100);
+      }
     });
-    setHabits(updatedHabits);
-    setEditingIndex(-1);
-  };
+  });
+
+  const averagePercentage = Math.ceil(
+    sumPercentageOfDay.reduce((acc, curr) => acc + curr, 0) / 7
+  );
+
+  const totalScoreOfWeek = Math.ceil(
+    (averagePercentage + calculateAveragePercentage(habits)) / 2
+  );
 
   return (
     <div className="bg-colorD1">
@@ -100,14 +84,14 @@ function HabitTracker() {
       <div className="flex flex-col items-center">
         <div className="flex flex-row justify-center items-center bg-colorA1">
           <p className="w-36 text-center bg-colorA2">Habits</p>
-          {weekDates.map(({ day, date, month, isToday }, index) => (
+          {weekDates.map(({ dayAbbr, date, month, isToday }, index) => (
             <p
               key={index}
               className={`w-32 text-center bg-colorA3 ${
                 isToday ? "font-bold" : ""
               }`}
             >
-              {`${day} ${date} ${month}`}
+              {`${dayAbbr} ${date} ${month}`}
             </p>
           ))}
           <p className="w-32 text-center bg-colorA2">CUSTOMIZE</p>
@@ -160,39 +144,73 @@ function HabitTracker() {
               </div>
 
               <div className="w-16 flex justify-center items-center">
-                <p className="text-xs">STATUS OF HABIT</p>
+                <p className="text-xs">
+                  {(() => {
+                    const numOfMarkedBoxes = habit.days.filter(
+                      (day) => day === true
+                    ).length;
+                    const percentage = Math.ceil((numOfMarkedBoxes / 7) * 100);
+                    return `(${percentage}%)`;
+                  })()}
+                </p>
               </div>
             </div>
           ))}
 
           <div className="flex flex-row justify-center items-center">
-            <p className="w-36 bg-colorD1">BOS</p>
-            {Array.from({ length: 7 }).map((_, index) => (
-              <p key={index} className="w-32 bg-colorD3">
-                STATUS OF DAY
-              </p>
-            ))}
+            <p className="w-36 bg-colorD1">{habits.length}</p>
+            {Array.from({ length: 7 }).map((_, index) => {
+              const markedBoxes = habits.reduce(
+                (acc, habit) => acc + (habit.days[index] ? 1 : 0),
+                0
+              );
+              const percentage = Math.ceil((markedBoxes / habits.length) * 100);
+              return (
+                <p key={index} className="w-32 bg-colorD3">
+                  {`${markedBoxes}/${habits.length} = (${percentage}%)`}
+                </p>
+              );
+            })}
             <p className="w-32 bg-colorD4">BOS</p>
           </div>
 
           <div className="w-full grid grid-cols-4 gap-4 items-center">
             <div className="bg-colorA1 text-xs p-2 text-center">
-              YOU HAVE DONE 5 OF 7 HABITS COMPLETELY
+              YOU HAVE DONE {completedHabitsCount} OF {habits.length} HABITS
+              COMPLETELY
             </div>
             <div className="bg-colorD2 text-xs p-2 text-center">
-              BEST DAY OF THIS WEEK: TUESDAY
+              BEST DAY OF THIS WEEK: {bestDayOfWeek}
             </div>
             <div className="bg-colorD3 text-xs p-2 text-center">
-              BEST HABIT OF THE WEEK IS RUNNING
+              BEST HABIT OF THE WEEK IS{" "}
+              {bestHabit.habit ? bestHabit.habit.name : "N/A"}
             </div>
             <div className="bg-colorD5 text-xs p-2 text-center">
-              TOTAL SCORE OF WEEK IS: 85%
+              TOTAL SCORE OF WEEK IS: {`(${totalScoreOfWeek}%)`}%
             </div>
           </div>
         </ul>
       </div>
     </div>
   );
+}
+
+function calculateAveragePercentage(habits) {
+  const sumPercentageOfDay = Array(7).fill(0);
+  habits.forEach((habit) => {
+    habit.days.forEach((day, index) => {
+      if (day) {
+        sumPercentageOfDay[index] += Math.ceil((1 / habits.length) * 100);
+      }
+    });
+  });
+
+  const averagePercentage = Math.ceil(
+    sumPercentageOfDay.reduce((acc, curr) => acc + curr, 0) / 7
+  );
+
+  return averagePercentage;
 }
 
 export default HabitTracker;

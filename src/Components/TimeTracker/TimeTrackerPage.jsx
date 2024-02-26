@@ -22,8 +22,9 @@ function TimeTrackerPage() {
     handleTimeChange,
     formatTime,
     totalTimeStudied,
-    handleSubmit, // Define handleSubmit here
+    handleSubmit,
   } = useTimeTracker();
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-5 lg:justify-between bg-colorD3">
       <div className="col-span-8 bg-colorB2">

@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 
-function UpcomingTasksWidget() {
+function TimeTrackerWidget() {
   return (
     <div className="cursor-pointer p-3 bg-colorA4 rounded-md shadow-xl h-full">
       <p>Upcoming Tasks:</p>
@@ -47,4 +47,4 @@ function UpcomingTasksWidget() {
   );
 }
 
-export default UpcomingTasksWidget;
+export default TimeTrackerWidget;

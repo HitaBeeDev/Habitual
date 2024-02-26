@@ -1,6 +1,6 @@
 import HabitWidget from "./HabitSection/HabitWidget";
 import TasksWidget from "./ToDoListSection/TasksWidget";
-import UpcomingTasksWidget from "./ToDoListSection/UpcomingTasksWidget";
+import TimeTrackerWidget from "./TimeTracker/TimeTrackerWidget";
 import WelcomeCard from "./WelcomeCard/WelcomeCard";
 import ArticlesSection from "./ArticlesSection/ArticlesSection";
 import ReportWidgets from "./ReportsSection/ReportWidgets";
@@ -9,7 +9,7 @@ function HomePage() {
   const widgets = [
     { component: HabitWidget, colSpan: "lg:col-span-2" },
     { component: TasksWidget, colSpan: "lg:col-span-3" },
-    { component: UpcomingTasksWidget, colSpan: "lg:col-span-3" },
+    { component: TimeTrackerWidget, colSpan: "lg:col-span-3" },
     { component: ReportWidgets, colSpan: "lg:col-span-2" },
     { component: ArticlesSection, colSpan: "lg:col-span-2" },
   ];

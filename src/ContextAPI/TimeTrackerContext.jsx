@@ -125,6 +125,7 @@ export const TimeTrackerProvider = ({ children }) => {
         handleTimeChange,
         formatTime,
         totalTimeStudied,
+        handleSubmit,
       }}
     >
       {children}

@@ -2,7 +2,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import NavList from "./NavList";
 import { mainNavItems } from "./navData";
-import userImage from "../../assets/user1.jpg";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
@@ -25,19 +24,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
         />
       </button>
 
-      {isOpen && (
-        <>
-          <div className="flex flex-col justify-center gap-10 items-center text-center h-full">
-            <h1 className="text-center transition-all hover:text-colorA4 text-xl tracking-widest font-semibold text-colorA3 cursor-pointer duration-500">
-              H a b i t u a l
-            </h1>
+      <div className="flex flex-col justify-center gap-10 items-center text-center h-full">
+        {isOpen && (
+          <h1 className="text-center transition-all hover:text-colorA4 text-xl tracking-widest font-semibold text-colorA3 cursor-pointer duration-500">
+            H a b i t u a l
+          </h1>
+        )}
 
-            <nav className="mx-auto">
-              <NavList navItems={mainNavItems} isOpen={isOpen} />
-            </nav>
-          </div>
-        </>
-      )}
+        <nav className="mx-auto">
+          <NavList navItems={mainNavItems} isOpen={isOpen} />
+        </nav>
+      </div>
     </div>
   );
 };

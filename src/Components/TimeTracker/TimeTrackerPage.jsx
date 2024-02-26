@@ -1,47 +1,34 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useTimeTracker } from "../../ContextAPI/TimeTrackerContext";
 
 function TimeTrackerPage() {
-  const [timeLeft, setTimeLeft] = useState(25 * 60);
-  const [isActive, setIsActive] = useState(false);
-  const [inputMinutes, setInputMinutes] = useState(25);
-  const [initialTime, setInitialTime] = useState(25 * 60); // Add this line
-
-  useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setTimeLeft((time) => (time > 0 ? time - 1 : 0));
-      }, 1000);
-    } else if (!isActive && timeLeft !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
-
-  const handleStartPause = () => {
-    setIsActive(!isActive);
-  };
-
-  const handleTimeChange = (event) => {
-    setInputMinutes(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setTimeLeft(inputMinutes * 60);
-    setInitialTime(inputMinutes * 60); // Update this line
-  };
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-  };
-
+  const {
+    timeLeft = 0,
+    setTimeLeft,
+    isActive,
+    setIsActive,
+    inputMinutes,
+    setInputMinutes,
+    initialTime,
+    setInitialTime,
+    projectName,
+    setProjectName,
+    projects,
+    setProjects,
+    timerSet,
+    setTimerSet,
+    handleStartPause,
+    handleProjectNameChange,
+    handleAddProject,
+    handleTimeChange,
+    formatTime,
+    totalTimeStudied,
+    handleSubmit, // Define handleSubmit here
+  } = useTimeTracker();
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-5 lg:justify-between bg-colorD3">
       <div className="col-span-8 bg-colorB2">
+        <p>Welcome</p>
+
         <svg className="transform -rotate-90" width="100" height="100">
           <circle
             r="45"
@@ -67,8 +54,8 @@ function TimeTrackerPage() {
             x="50"
             y="50"
             fill="black"
-            text-anchor="middle"
-            dominant-baseline="middle"
+            textAnchor="middle"
+            dominantBaseline="middle"
             className="text-xl font-mono"
             transform="rotate(90 50 50)"
           >
@@ -87,8 +74,11 @@ function TimeTrackerPage() {
 
         <div className="mt-10">
           <label>Your project name:</label>
-          <input type="text" />
-          <button>save</button>
+          <input
+            type="text"
+            value={projectName}
+            onChange={handleProjectNameChange}
+          />
         </div>
 
         <form onSubmit={handleSubmit} className="mt-4">
@@ -100,10 +90,11 @@ function TimeTrackerPage() {
             placeholder="Minutes"
           />
           <button
+            onClick={handleAddProject}
             type="submit"
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
-            Set Timer
+            Save
           </button>
         </form>
       </div>
@@ -112,15 +103,19 @@ function TimeTrackerPage() {
         <div>
           <p>List of projects of the day:</p>
           <ul>
-            <li>
-              <p>Your project name</p>
-              <p>Studied Time</p>
-            </li>
+            {projects.map((project, index) => (
+              <li className="flex flex-row justify-between" key={index}>
+                <p>{project.name}</p>
+                <p>{formatTime(project.timeLeft)}</p>
+              </li>
+            ))}
           </ul>
         </div>
 
-        <p>You Studied Total: </p>
+        <p>You Studied Total: {formatTime(totalTimeStudied, true)}</p>
       </div>
+
+      <p>QOUTE MOTIATING</p>
     </div>
   );
 }

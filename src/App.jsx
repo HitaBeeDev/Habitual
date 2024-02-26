@@ -3,13 +3,16 @@ import Container from "./Components/Container";
 import "./index.css";
 import { HabitProvider } from "./ContextAPI/HabitContext";
 import { TaskProvider } from "./ContextAPI/TasksContext";
+import { TimeTrackerProvider } from "./ContextAPI/TimeTrackerContext";
 
 function App() {
   return (
     <BrowserRouter>
       <HabitProvider>
         <TaskProvider>
-          <Container />
+          <TimeTrackerProvider>
+            <Container />
+          </TimeTrackerProvider>
         </TaskProvider>
       </HabitProvider>
     </BrowserRouter>

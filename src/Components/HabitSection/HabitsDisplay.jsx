@@ -16,14 +16,12 @@ export default function HabitsDisplay({
   return (
     <div className="flex flex-col items-center justify-between">
       <DayOfWeek weekDates={weekDates} />
-      <ul
-        className="bg-colorB4 w-full flex flex-col items-center text-center gap-5 overflow-y-auto"
-        style={{ maxHeight: "550px" }}
-      >
+      <ul className="bg-colorB4 w-full flex flex-col items-center text-center gap-5">
         {habits.map((habit, index) => (
           <HabitEdit
             key={index}
             habit={habit}
+            habits={habits}
             index={index}
             editingIndex={editingIndex}
             editValue={editValue}

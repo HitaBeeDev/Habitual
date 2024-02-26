@@ -34,24 +34,27 @@ function HabitTracker() {
   const totalScoreOfWeek = calculateTotalScoreOfWeek(habits);
 
   return (
-    <div className="mt-5 mb-5 ml-16 w-full flex flex-col bg-colorD1 h-11/12 lg:-ml-0">
-      <HabitInputSection
-        currentHabit={currentHabit}
-        handleInputChange={handleInputChange}
-        handleAddHabit={handleAddHabit}
-      />
-      <HabitsDisplay
-        habits={habits}
-        weekDates={weekDates}
-        editingIndex={editingIndex}
-        editValue={editValue}
-        setEditValue={setEditValue}
-        toggleDay={toggleDay}
-        handleEditClick={handleEditClick}
-        handleCancelClick={handleCancelClick}
-        handleSaveClick={handleSaveClick}
-        handleDeleteClick={handleDeleteClick}
-      />
+    <div className="mt-5 mb-5 ml-16 w-full flex flex-col justify-between bg-colorD1 lg:-ml-0">
+      <div className="overflow-auto">
+        <HabitInputSection
+          currentHabit={currentHabit}
+          handleInputChange={handleInputChange}
+          handleAddHabit={handleAddHabit}
+        />
+        <HabitsDisplay
+          habits={habits}
+          weekDates={weekDates}
+          editingIndex={editingIndex}
+          editValue={editValue}
+          setEditValue={setEditValue}
+          toggleDay={toggleDay}
+          handleEditClick={handleEditClick}
+          handleCancelClick={handleCancelClick}
+          handleSaveClick={handleSaveClick}
+          handleDeleteClick={handleDeleteClick}
+        />
+      </div>
+
       <HabitStats
         completedHabitsCount={completedHabitsCount}
         bestDayOfWeek={bestDayOfWeek}

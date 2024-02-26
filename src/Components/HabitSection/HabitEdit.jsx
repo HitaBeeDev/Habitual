@@ -11,7 +11,7 @@ export default function HabitEdit({
   handleDeleteClick, // Add this prop
 }) {
   return (
-    <div className="w-full overflow-x-hidden flex flex-row items-center bg-colorC5 justify-between">
+    <div className="w-full overflow-hidden h-12 flex flex-row items-center bg-colorC5 justify-between">
       {editingIndex === index ? (
         <input
           className="w-36 bg-colorB3"

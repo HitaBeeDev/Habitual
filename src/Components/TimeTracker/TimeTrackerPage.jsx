@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useTimeTracker } from "../../ContextAPI/TimeTrackerContext";
 
 function TimeTrackerPage() {
@@ -24,6 +25,32 @@ function TimeTrackerPage() {
     totalTimeStudied,
     handleSubmit,
   } = useTimeTracker();
+
+  const [editIndex, setEditIndex] = useState(null);
+  const [editedProjectName, setEditedProjectName] = useState("");
+
+  const handleEdit = (index, projectName) => {
+    setEditIndex(index);
+    setEditedProjectName(projectName);
+  };
+
+  const handleSaveEdit = (index) => {
+    setProjects((prevProjects) => {
+      const updatedProjects = [...prevProjects];
+      updatedProjects[index].name = editedProjectName;
+      return updatedProjects;
+    });
+    setEditIndex(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditIndex(null);
+    setEditedProjectName("");
+  };
+
+  const handleDelete = (index) => {
+    setProjects((prevProjects) => prevProjects.filter((_, i) => i !== index));
+  };
 
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-5 lg:justify-between bg-colorD3">
@@ -77,8 +104,12 @@ function TimeTrackerPage() {
           <label>Your project name:</label>
           <input
             type="text"
-            value={projectName}
-            onChange={handleProjectNameChange}
+            value={editIndex !== null ? editedProjectName : projectName}
+            onChange={
+              editIndex !== null
+                ? (e) => setEditedProjectName(e.target.value)
+                : handleProjectNameChange
+            }
           />
         </div>
 
@@ -106,8 +137,34 @@ function TimeTrackerPage() {
           <ul>
             {projects.map((project, index) => (
               <li className="flex flex-row justify-between" key={index}>
-                <p>{project.name}</p>
-                <p>{formatTime(project.timeLeft)}</p>
+                {editIndex === index ? (
+                  <>
+                    <input
+                      type="text"
+                      value={editedProjectName}
+                      onChange={(e) => setEditedProjectName(e.target.value)}
+                    />
+                    <div>
+                      <button onClick={() => handleSaveEdit(index)}>
+                        Save
+                      </button>
+                      <button onClick={handleCancelEdit}>Cancel</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p>{project.name}</p>
+                    <p>{formatTime(project.timeLeft)}</p>
+                    <div>
+                      <button onClick={() => handleEdit(index, project.name)}>
+                        EDIT
+                      </button>
+                      <button onClick={() => handleDelete(index)}>
+                        DELETE
+                      </button>
+                    </div>
+                  </>
+                )}
               </li>
             ))}
           </ul>

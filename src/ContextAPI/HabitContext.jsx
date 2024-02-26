@@ -1,4 +1,3 @@
-// src/contexts/HabitContext.js
 import { createContext, useContext, useState, useEffect } from "react";
 import usePersistentState from "../usePersistentState";
 
@@ -103,6 +102,10 @@ export const HabitProvider = ({ children }) => {
     setEditingIndex(-1);
   };
 
+  const handleDeleteClick = (index) => {
+    setHabits(habits.filter((_, i) => i !== index));
+  };
+
   return (
     <HabitContext.Provider
       value={{
@@ -117,7 +120,8 @@ export const HabitProvider = ({ children }) => {
         handleEditClick,
         handleCancelClick,
         handleSaveClick,
-        calculateAveragePercentage, // Provided here for completeness, ensure it's used appropriately.
+        handleDeleteClick,
+        calculateAveragePercentage,
       }}
     >
       {children}

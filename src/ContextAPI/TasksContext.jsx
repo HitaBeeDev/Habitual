@@ -124,6 +124,27 @@ export const TaskProvider = ({ children }) => {
     return acc;
   }, {});
 
+  const [checkedTasks, setCheckedTasks] = useState([]);
+
+  const handleCheckboxChange = (taskIdentifier) => {
+    const newCheckedTasks = [...checkedTasks];
+    if (newCheckedTasks.includes(taskIdentifier)) {
+      newCheckedTasks.splice(newCheckedTasks.indexOf(taskIdentifier), 1);
+    } else {
+      newCheckedTasks.push(taskIdentifier);
+    }
+    setCheckedTasks(newCheckedTasks);
+  };
+
+  const sortedTasks = Object.entries(groupedTasks).sort(([dateA], [dateB]) => {
+    const dateAObj = new Date(dateA);
+    const dateBObj = new Date(dateB);
+    return dateAObj - dateBObj;
+  });
+
+  const generateTaskIdentifier = (task, index) =>
+    `${task.name}-${task.description}-${index}`;
+
   return (
     <TaskContext.Provider
       value={{
@@ -143,6 +164,10 @@ export const TaskProvider = ({ children }) => {
         handleTaskSaveClick,
         updateNewTask,
         groupedTasks,
+        checkedTasks,
+        handleCheckboxChange,
+        sortedTasks,
+        generateTaskIdentifier,
       }}
     >
       {children}

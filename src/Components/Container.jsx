@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Sidebar from "./Sidebar/Sidebar";
 import HomePage from "./HomePage";
 import HabitTrackerPage from "./HabitSection/HabitTrackerPage";
-import ToDoListPage from "./TasksSection/ToDoListPage";
+import ToDoListPage from "./ToDoListSection/ToDoListPage";
 import ReportsPage from "./ReportsSection/ReportSectionPage";
 import TimeTrackerPage from "./TimeTracker/TimeTrackerPage";
 

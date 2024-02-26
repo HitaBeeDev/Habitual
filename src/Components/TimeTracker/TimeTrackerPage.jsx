@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useTimeTracker } from "../../ContextAPI/TimeTrackerContext";
 
 function TimeTrackerPage() {
@@ -24,33 +23,12 @@ function TimeTrackerPage() {
     formatTime,
     totalTimeStudied,
     handleSubmit,
+    editIndex,
+    setEditIndex,
+    editedProjectName,
+    setEditedProjectName,
+    handleEdit,
   } = useTimeTracker();
-
-  const [editIndex, setEditIndex] = useState(null);
-  const [editedProjectName, setEditedProjectName] = useState("");
-
-  const handleEdit = (index, projectName) => {
-    setEditIndex(index);
-    setEditedProjectName(projectName);
-  };
-
-  const handleSaveEdit = (index) => {
-    setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      updatedProjects[index].name = editedProjectName;
-      return updatedProjects;
-    });
-    setEditIndex(null);
-  };
-
-  const handleCancelEdit = () => {
-    setEditIndex(null);
-    setEditedProjectName("");
-  };
-
-  const handleDelete = (index) => {
-    setProjects((prevProjects) => prevProjects.filter((_, i) => i !== index));
-  };
 
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-10 lg:grid lg:grid-cols-12 lg:gap-5 lg:justify-between bg-colorD3">

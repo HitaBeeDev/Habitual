@@ -9,18 +9,42 @@ export const TimeTrackerProvider = ({ children }) => {
   const [timeLeft, setTimeLeft] = usePersistentState("timeLeft", 25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [inputMinutes, setInputMinutes] = usePersistentState(
-    // Fixed typo
     "inputMinutes",
     25
   );
   const [initialTime, setInitialTime] = usePersistentState(
-    // Fixed typo
     "initialTime",
     25 * 60
   );
-  const [projectName, setProjectName] = usePersistentState("projectName", ""); // Fixed typo
-  const [projects, setProjects] = usePersistentState("projects", []); // Fixed typo
-  const [timerSet, setTimerSet] = usePersistentState("timerSet", false); // Fixed typo
+  const [projectName, setProjectName] = usePersistentState("projectName", "");
+  const [projects, setProjects] = usePersistentState("projects", []);
+  const [timerSet, setTimerSet] = usePersistentState("timerSet", false);
+
+  const [editIndex, setEditIndex] = useState(null);
+  const [editedProjectName, setEditedProjectName] = useState("");
+
+  const handleEdit = (index, projectName) => {
+    setEditIndex(index);
+    setEditedProjectName(projectName);
+  };
+
+  const handleSaveEdit = (index) => {
+    setProjects((prevProjects) => {
+      const updatedProjects = [...prevProjects];
+      updatedProjects[index].name = editedProjectName;
+      return updatedProjects;
+    });
+    setEditIndex(null);
+  };
+
+  const handleCancelEdit = () => {
+    setEditIndex(null);
+    setEditedProjectName("");
+  };
+
+  const handleDelete = (index) => {
+    setProjects((prevProjects) => prevProjects.filter((_, i) => i !== index));
+  };
 
   const handleStartPause = () => {
     setIsActive(!isActive);
@@ -126,6 +150,11 @@ export const TimeTrackerProvider = ({ children }) => {
         formatTime,
         totalTimeStudied,
         handleSubmit,
+        editIndex,
+        setEditIndex,
+        editedProjectName,
+        setEditedProjectName,
+        handleEdit,
       }}
     >
       {children}

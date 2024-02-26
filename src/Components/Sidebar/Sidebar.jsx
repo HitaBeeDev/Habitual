@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import NavList from "./NavList";
-import { mainNavItems, settingsNavItems } from "./navData";
+import { mainNavItems } from "./navData";
 import userImage from "../../assets/user1.jpg";
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
@@ -27,31 +27,17 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
 
       {isOpen && (
         <>
-          <div className="hidden lg:flex justify-center items-center">
-            <h1 className="transition-all hover:text-colorA4 text-xl tracking-widest font-semibold text-colorA3 cursor-pointer duration-500 rotate-[360deg]">
-              Habitual
+          <div className="flex flex-col justify-center gap-10 items-center text-center h-full">
+            <h1 className="text-center transition-all hover:text-colorA4 text-xl tracking-widest font-semibold text-colorA3 cursor-pointer duration-500">
+              H a b i t u a l
             </h1>
-          </div>
 
-          <div className="hidden lg:flex justify-center items-center">
-            <img
-              src={userImage}
-              className="w-20 border-2 border-colorA3 rounded-full duration-500"
-              alt="user"
-            />
+            <nav className="mx-auto">
+              <NavList navItems={mainNavItems} isOpen={isOpen} />
+            </nav>
           </div>
         </>
       )}
-
-      <div className="flex flex-col justify-center items-center gap-6 mb-3">
-        <nav>
-          <NavList navItems={mainNavItems} isOpen={isOpen} />
-        </nav>
-
-        <nav>
-          <NavList navItems={settingsNavItems} isOpen={isOpen} />
-        </nav>
-      </div>
     </div>
   );
 };

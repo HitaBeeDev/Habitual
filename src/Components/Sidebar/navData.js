@@ -1,11 +1,7 @@
 import {
   faHouse,
   faListCheck,
-  faChartLine,
   faHourglassHalf,
-  faUserGroup,
-  faGear,
-  faArrowRightFromBracket,
   faTrophy,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,9 +10,4 @@ export const mainNavItems = [
   { icon: faTrophy, label: "Habit Tracker" },
   { icon: faListCheck, label: "ToDo List" },
   { icon: faHourglassHalf, label: "Time Tracker" },
-];
-
-export const settingsNavItems = [
-  { icon: faGear, label: "Settings" },
-  { icon: faArrowRightFromBracket, label: "Log Out" },
 ];

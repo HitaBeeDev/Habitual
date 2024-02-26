@@ -2,7 +2,6 @@ import {
   faHouse,
   faListCheck,
   faChartLine,
-  faCalendarDays,
   faHourglassHalf,
   faUserGroup,
   faGear,
@@ -13,10 +12,9 @@ import {
 export const mainNavItems = [
   { icon: faHouse, label: "Dashboard" },
   { icon: faTrophy, label: "Habit Tracker" },
-  { icon: faListCheck, label: "Tasks" },
-  { icon: faChartLine, label: "Reports" },
-  { icon: faCalendarDays, label: "Calendar" },
+  { icon: faListCheck, label: "ToDo List" },
   { icon: faHourglassHalf, label: "Time Tracker" },
+  { icon: faChartLine, label: "Reports" },
   { icon: faUserGroup, label: "People" },
 ];
 

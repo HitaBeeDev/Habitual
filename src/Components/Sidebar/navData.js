@@ -14,8 +14,6 @@ export const mainNavItems = [
   { icon: faTrophy, label: "Habit Tracker" },
   { icon: faListCheck, label: "ToDo List" },
   { icon: faHourglassHalf, label: "Time Tracker" },
-  { icon: faChartLine, label: "Reports" },
-  { icon: faUserGroup, label: "People" },
 ];
 
 export const settingsNavItems = [

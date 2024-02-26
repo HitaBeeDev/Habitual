@@ -4,7 +4,6 @@ import Sidebar from "./Sidebar/Sidebar";
 import HomePage from "./HomePage";
 import HabitTrackerPage from "./HabitSection/HabitTrackerPage";
 import ToDoListPage from "./ToDoListSection/ToDoListPage";
-import ReportsPage from "./ReportsSection/ReportSectionPage";
 import TimeTrackerPage from "./TimeTracker/TimeTrackerPage";
 
 function Container() {
@@ -31,7 +30,6 @@ function Container() {
           <Route path="/habit-tracker" element={<HabitTrackerPage />} />
           <Route path="/ToDo-List" element={<ToDoListPage />} />
           <Route path="/Time-Tracker" element={<TimeTrackerPage />} />
-          <Route path="/reports" element={<ReportsPage />} />
         </Routes>
       </div>
     </div>

@@ -36,6 +36,10 @@ function HabitTrackerPageV2() {
     setEditInput(e.target.value);
   };
 
+  const handleDeleteClick = (index) => {
+    setHabits(habits.filter((_, i) => i !== index));
+  };
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -65,7 +69,15 @@ function HabitTrackerPageV2() {
       {habits.map((habit, index) => (
         <div key={index} className="grid grid-cols-12 gap-1 items-center">
           <div className="col-span-2 text-center bg-colorA1">
-            <p>{habit}</p>
+            {editIndex === index ? (
+              <input
+                value={editInput}
+                onChange={handleEditInputChange}
+                type="text"
+              />
+            ) : (
+              <p>{habit}</p>
+            )}
           </div>
           {[...Array(7)].map((_, i) => (
             <div
@@ -75,8 +87,38 @@ function HabitTrackerPageV2() {
               <div className="w-5 h-5 bg-colorD1"></div>
             </div>
           ))}
-          <div className="col-span-1 text-center bg-colorB4">edit</div>
-          <div className="col-span-1 text-center bg-colorB5">delete</div>
+
+          {editIndex === index ? (
+            <>
+              <button
+                className="col-span-1 text-center bg-colorB4"
+                onClick={handleSaveClick}
+              >
+                save
+              </button>
+              <button
+                className="col-span-1 text-center bg-colorB5"
+                onClick={handleCancelClick}
+              >
+                cancel
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                className="col-span-1 text-center bg-colorB4"
+                onClick={() => handleEditClick(index)}
+              >
+                edit
+              </button>
+              <button
+                className="col-span-1 text-center bg-colorB5"
+                onClick={() => handleDeleteClick(index)}
+              >
+                delete
+              </button>
+            </>
+          )}
           <div className="col-span-1 text-center bg-colorC1">STATUS</div>
         </div>
       ))}

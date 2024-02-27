@@ -7,14 +7,6 @@ function HabitTrackerPageV2() {
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState("");
 
-  const today = new Date();
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const currentWeekDates = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(today);
-    date.setDate(today.getDate() - today.getDay() + index);
-    return date;
-  });
-
   const handleInputChange = (e) => {
     setHabitInput(e.target.value);
   };
@@ -49,6 +41,32 @@ function HabitTrackerPageV2() {
     setHabits(habits.filter((_, i) => i !== index));
   };
 
+  // Function to get dates for current week starting from Monday
+  const getWeekDates = () => {
+    const today = new Date();
+    const currentDay = today.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+    const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
+    const monday = new Date(today);
+    monday.setDate(today.getDate() + mondayOffset);
+    const dates = [monday];
+    for (let i = 1; i < 7; i++) {
+      const date = new Date(monday);
+      date.setDate(monday.getDate() + i);
+      dates.push(date);
+    }
+    return dates;
+  };
+
+  const weekDates = getWeekDates();
+
+  const formatDate = (date) => {
+    const options = { weekday: "short", day: "2-digit", month: "short" };
+    return new Intl.DateTimeFormat("en-US", options).format(date);
+  };
+
+  const today = new Date();
+  const formattedToday = formatDate(today);
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -63,21 +81,15 @@ function HabitTrackerPageV2() {
         <div className="col-span-2 text-center bg-colorA1">
           <p>HABITS</p>
         </div>
-        {currentWeekDates.map((date, index) => (
-          <div key={index} className="col-span-1 text-center bg-colorA2">
+        {weekDates.map((date, index) => (
+          <div key={index} className="col-span-1 text-center bg-colorA">
             <p
               style={{
                 fontWeight:
-                  date.toDateString() === today.toDateString()
-                    ? "bold"
-                    : "normal",
+                  formattedToday === formatDate(date) ? "bold" : "normal",
               }}
             >
-              {`${
-                daysOfWeek[date.getDay()]
-              } ${date.getDate()} ${date.toLocaleString("default", {
-                month: "short",
-              })}`}
+              {formatDate(date)}
             </p>
           </div>
         ))}
@@ -99,9 +111,9 @@ function HabitTrackerPageV2() {
               <p>{habit.name}</p>
             )}
           </div>
-          {currentWeekDates.map((date, i) => (
+          {weekDates.map((date, index) => (
             <div
-              key={i}
+              key={index}
               className="col-span-1 flex justify-center items-center"
             >
               <div className="w-5 h-5 bg-colorD1"></div>

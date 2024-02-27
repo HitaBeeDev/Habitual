@@ -106,6 +106,14 @@ function HabitTrackerPageV2() {
         ? `Your best day of the week was: ${bestDays[0]}`
         : `Your best days of the week were: ${bestDays.join(", ")}`
       : "You don't have any day with 100% completion.";
+
+  const bestHabits = habits.filter((habit) => habit.days.every((day) => day));
+
+  const bestHabitMessage =
+    bestHabits.length > 0
+      ? bestHabits.map((habit) => habit.name).join(", ")
+      : "No habits with 100% completion this week.";
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -230,12 +238,15 @@ function HabitTrackerPageV2() {
         <div className="col-span-3 bg-colorD1 text-center">
           You did {completedHabits} of {totalHabits} habits completely.
         </div>
+
+        <div className="col-span-3 bg-colorD5 text-center">
+          Your best habit/s is/are: {bestHabitMessage}
+        </div>
+
         <div className="col-span-3 bg-colorD2 text-center">
           {bestDayMessage}
         </div>
-        <div className="col-span-3 bg-colorD5 text-center">
-          Your best habit/s is/are ...
-        </div>
+
         <div className="col-span-3 bg-colorD4 text-center">
           Your result of the week is:
         </div>

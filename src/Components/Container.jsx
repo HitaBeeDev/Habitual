@@ -7,7 +7,7 @@ import TimeTrackerPage from "./TimeTracker/TimeTrackerPage";
 import HabitTrackerPage from "./HabitSection/HabitTrackerPage";
 
 function Container() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const sidebarWidth = isOpen ? "lg:w-48" : "lg:w-12";
   const contentMargin = isOpen

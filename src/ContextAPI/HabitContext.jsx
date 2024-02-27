@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import usePersistentState from "../usePersistentState";
 
 const HabitContext = createContext();
@@ -130,6 +130,19 @@ export const HabitProvider = ({ children }) => {
 
   const averagePercentageForWeek = calculateAveragePercentageForWeek();
 
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isLargeScreen = windowWidth >= 1024;
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const visibleWeekDates = isLargeScreen ? weekDates : [new Date()];
+
   return (
     <HabitContext.Provider
       value={{
@@ -158,6 +171,7 @@ export const HabitProvider = ({ children }) => {
         averagePercentageForWeek,
         weekDates,
         percentages,
+        visibleWeekDates,
       }}
     >
       {children}

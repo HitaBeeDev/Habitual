@@ -1,18 +1,13 @@
-import { useState, useEffect } from "react";
 import { useHabits } from "../../ContextAPI/HabitContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSquarePlus,
+  faPenToSquare,
+  faTrashCan,
+  faChartLine,
+} from "@fortawesome/free-solid-svg-icons";
 
 function HabitTrackerPage() {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const isLargeScreen = windowWidth >= 1024; // Assuming large screen width starts from 1024px
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   const {
     habits,
     editIndex,
@@ -39,56 +34,85 @@ function HabitTrackerPage() {
     averagePercentageForWeek,
     weekDates,
     percentages,
+    visibleWeekDates,
   } = useHabits();
 
-  const visibleWeekDates = isLargeScreen ? weekDates : [new Date()];
-
   return (
-    <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
-      <div className="flex flex-row justify-between">
-        <p>HELLO</p>
-        <div>
-          <input value={habitInput} onChange={handleInputChange} type="text" />
-          <button onClick={handleAddClick}>ADD</button>
+    <div className="lg:mt-9 lg:mb-5 mt-20 w-full flex flex-col gap-2">
+      <div className="flex flex-row justify-between items-center shadow-xl bg-colorA4 rounded-lg p-3 pl-5 pr-5">
+        <div className="flex flex-col gap-2">
+          <p className="text-2xl font-semibold text-colorA3">
+            Welcome to the journey of building new habits!
+          </p>
+          <p className="text-sm font-normal text-colorA3">
+            Let's embark on this exciting adventure together!
+          </p>
+        </div>
+
+        <div className="flex flex-row gap-3 justify-center items-center h-8">
+          <input
+            value={habitInput}
+            onChange={handleInputChange}
+            type="text"
+            className="rounded-lg text-xs p-2 pl-3 w-52"
+            placeholder="Add a new habit..."
+          />
+          <button onClick={handleAddClick}>
+            <FontAwesomeIcon
+              icon={faSquarePlus}
+              className="text-colorA3 mt-2 hover:text-colorA2 transition-all duration-500 w-6 h-6"
+            />
+          </button>
         </div>
       </div>
 
-      <div className="lg:grid lg:grid-cols-12 w-full flex flex-row gap-1">
-        <div className="col-span-2 text-center w-full bg-colorA1">
-          <p>HABITS</p>
+      <div className="lg:grid lg:grid-cols-12 bg-colorA3 h-12 w-full rounded-md items-center shadow-lg flex flex-row gap-3">
+        <div className="col-span-2 text-center w-full">
+          <p className="text-md font-semibold text-colorA4">Your Habits</p>
         </div>
+
         {visibleWeekDates.map((date, index) => (
           <div
             key={index}
-            className="lg:col-span-1 w-full text-center bg-colorA"
+            className="lg:col-span-1 flex justify-center items-center border-[1px] h-9 rounded-lg border-colorA1 p-1 w-full text-center"
           >
             <p
-              style={{
-                fontWeight:
-                  formattedToday === formatDate(date) ? "bold" : "normal",
-              }}
+              className={`text-sm text-colorA4 ${
+                formattedToday === formatDate(date)
+                  ? "font-bold"
+                  : "font-medium"
+              }`}
             >
               {formatDate(date)}
             </p>
           </div>
         ))}
-        <div className="col-span-1 text-center hidden lg:block bg-colorB4">
-          edit
+
+        <div className="col-span-1 text-center hidden lg:block">
+          <FontAwesomeIcon
+            icon={faPenToSquare}
+            className="text-colorA4 w-5 h-5"
+          />
         </div>
-        <div className="col-span-1 text-center hidden lg:block bg-colorB5">
-          delete
+
+        <div className="col-span-1 text-center hidden lg:block">
+          <FontAwesomeIcon icon={faTrashCan} className="text-colorA4 w-5 h-5" />
         </div>
-        <div className="col-span-1 text-center hidden lg:block bg-colorC1">
-          STATUS
+
+        <div className="col-span-1 text-center hidden lg:block">
+          <FontAwesomeIcon
+            icon={faChartLine}
+            className="text-colorA4 w-5 h-5"
+          />
         </div>
       </div>
 
       {habits.map((habit, index) => (
         <div
           key={index}
-          className="lg:grid lg:grid-cols-12 w-full gap-1 flex flex-row justify-between items-center"
+          className="lg:grid lg:grid-cols-12 bg-colorA3 h-10 rounded-lg w-full gap-3 flex flex-row justify-between items-center"
         >
-          <div className="lg:col-span-2 w-full text-center bg-colorA1">
+          <div className="lg:col-span-2 w-full text-center">
             {editIndex === index ? (
               <input
                 value={editInput}

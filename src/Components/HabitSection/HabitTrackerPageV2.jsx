@@ -73,6 +73,16 @@ function HabitTrackerPageV2() {
   const today = new Date();
   const formattedToday = formatDate(today);
 
+  const calculateHabitCompletion = () => {
+    let totalHabits = habits.length;
+    let completedHabits = habits.filter((habit) =>
+      habit.days.every((day) => day)
+    ).length;
+    return { totalHabits, completedHabits };
+  };
+
+  const { totalHabits, completedHabits } = calculateHabitCompletion();
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -165,6 +175,7 @@ function HabitTrackerPageV2() {
           )}
 
           <div className="col-span-1 text-center bg-colorC1">
+            {/* Calculate and display the completion percentage */}
             {`${Math.round(
               (habit.days.filter((day) => day).length / 7) * 100
             )}%`}
@@ -172,18 +183,40 @@ function HabitTrackerPageV2() {
         </div>
       ))}
 
+      {/* Displaying the status for each day of the week */}
+      <div className="bg-colorC2 grid grid-cols-12 gap-1">
+        <div className="col-span-2 bg-colorC3">STATUS</div>
+        {weekDates.map((date, index) => {
+          const markedHabits = habits.filter(
+            (habit) => habit.days[index]
+          ).length;
+          const totalHabitsCount = habits.length;
+          const percentage =
+            totalHabitsCount !== 0
+              ? Math.round((markedHabits / totalHabitsCount) * 100)
+              : 0;
+
+          return (
+            <div key={index} className="col-span-1 text-center bg-colorA">
+              <p>{percentage}%</p>
+            </div>
+          );
+        })}
+        <div className="col-span-3 bg-colorA1">Qoute</div>
+      </div>
+
       <div className="bg-colorC2 grid grid-cols-12 gap-2">
         <div className="col-span-3 bg-colorD1 text-center">
-          You did n of m habits compeletly.
+          You did {completedHabits} of {totalHabits} habits completely.
         </div>
         <div className="col-span-3 bg-colorD2 text-center">
-          Your best day of week was :
+          {bestDayMessage}
         </div>
         <div className="col-span-3 bg-colorD5 text-center">
           Your best habit/s is/are ...
         </div>
         <div className="col-span-3 bg-colorD4 text-center">
-          Your result of week is:
+          Your result of the week is:
         </div>
       </div>
     </div>

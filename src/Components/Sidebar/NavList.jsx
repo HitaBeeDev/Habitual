@@ -10,7 +10,7 @@ const NavList = ({ navItems, isOpen }) => {
           <li
             className={`flex rounded-md h-8 p-3 cursor-pointer justify-start items-center text-xs gap-3 group ${
               isOpen ? "w-36" : "w-10"
-            }`} // Adjusted flex-direction based on isOpen
+            }`}
             key={index}
           >
             <Link
@@ -21,7 +21,7 @@ const NavList = ({ navItems, isOpen }) => {
                 <FontAwesomeIcon
                   icon={item.icon}
                   className={`w-3 h-3 text-colorA3 group-hover:text-colorA4 duration-500 ${
-                    isOpen ? "" : "lg:block"
+                    isOpen ? "" : "hidden lg:block"
                   }`}
                 />
               </div>

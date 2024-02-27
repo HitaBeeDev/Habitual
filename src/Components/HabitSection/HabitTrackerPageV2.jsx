@@ -3,6 +3,8 @@ import { useState } from "react";
 function HabitTrackerPageV2() {
   const [habitInput, setHabitInput] = useState("");
   const [habits, setHabits] = useState([]);
+  const [editIndex, setEditIndex] = useState(-1);
+  const [editInput, setEditInput] = useState("");
 
   const handleInputChange = (e) => {
     setHabitInput(e.target.value);
@@ -12,6 +14,26 @@ function HabitTrackerPageV2() {
     if (!habitInput) return;
     setHabits([...habits, habitInput]);
     setHabitInput("");
+  };
+
+  const handleEditClick = (index) => {
+    setEditIndex(index);
+    setEditInput(habits[index]);
+  };
+
+  const handleSaveClick = () => {
+    const updatedHabits = [...habits];
+    updatedHabits[editIndex] = editInput;
+    setHabits(updatedHabits);
+    setEditIndex(-1); // Exit edit mode
+  };
+
+  const handleCancelClick = () => {
+    setEditIndex(-1);
+  };
+
+  const handleEditInputChange = (e) => {
+    setEditInput(e.target.value);
   };
 
   return (

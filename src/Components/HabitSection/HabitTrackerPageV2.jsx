@@ -1,10 +1,19 @@
 import { useState } from "react";
+import usePersistantState from "../../usePersistentState";
 
 function HabitTrackerPageV2() {
   const [habitInput, setHabitInput] = useState("");
-  const [habits, setHabits] = useState([]);
+  const [habits, setHabits] = usePersistantState("habits", []);
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState("");
+
+  const today = new Date();
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const currentWeekDates = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() - today.getDay() + index);
+    return date;
+  });
 
   const handleInputChange = (e) => {
     setHabitInput(e.target.value);
@@ -12,20 +21,20 @@ function HabitTrackerPageV2() {
 
   const handleAddClick = () => {
     if (!habitInput) return;
-    setHabits([...habits, habitInput]);
+    setHabits([...habits, { name: habitInput, days: [] }]);
     setHabitInput("");
   };
 
   const handleEditClick = (index) => {
     setEditIndex(index);
-    setEditInput(habits[index]);
+    setEditInput(habits[index].name);
   };
 
   const handleSaveClick = () => {
     const updatedHabits = [...habits];
-    updatedHabits[editIndex] = editInput;
+    updatedHabits[editIndex].name = editInput;
     setHabits(updatedHabits);
-    setEditIndex(-1); // Exit edit mode
+    setEditIndex(-1);
   };
 
   const handleCancelClick = () => {
@@ -54,13 +63,24 @@ function HabitTrackerPageV2() {
         <div className="col-span-2 text-center bg-colorA1">
           <p>HABITS</p>
         </div>
-        <div className="col-span-1 text-center bg-colorA2">MONDAY</div>
-        <div className="col-span-1 text-center bg-colorA3">TUESDAY</div>
-        <div className="col-span-1 text-center bg-colorA4">WEDNESDAY</div>
-        <div className="col-span-1 text-center bg-colorA5">THURSDAY</div>
-        <div className="col-span-1 text-center bg-colorB1">FRIDAY</div>
-        <div className="col-span-1 text-center bg-colorB2">SATURDAY</div>
-        <div className="col-span-1 text-center bg-colorB3">SUNDAY</div>
+        {currentWeekDates.map((date, index) => (
+          <div key={index} className="col-span-1 text-center bg-colorA2">
+            <p
+              style={{
+                fontWeight:
+                  date.toDateString() === today.toDateString()
+                    ? "bold"
+                    : "normal",
+              }}
+            >
+              {`${
+                daysOfWeek[date.getDay()]
+              } ${date.getDate()} ${date.toLocaleString("default", {
+                month: "short",
+              })}`}
+            </p>
+          </div>
+        ))}
         <div className="col-span-1 text-center bg-colorB4">edit</div>
         <div className="col-span-1 text-center bg-colorB5">delete</div>
         <div className="col-span-1 text-center bg-colorC1">STATUS</div>
@@ -76,10 +96,10 @@ function HabitTrackerPageV2() {
                 type="text"
               />
             ) : (
-              <p>{habit}</p>
+              <p>{habit.name}</p>
             )}
           </div>
-          {[...Array(7)].map((_, i) => (
+          {currentWeekDates.map((date, i) => (
             <div
               key={i}
               className="col-span-1 flex justify-center items-center"

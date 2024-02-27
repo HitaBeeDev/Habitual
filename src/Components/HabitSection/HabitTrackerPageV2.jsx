@@ -114,6 +114,21 @@ function HabitTrackerPageV2() {
       ? bestHabits.map((habit) => habit.name).join(", ")
       : "No habits with 100% completion this week.";
 
+  const calculateAveragePercentageForWeek = () => {
+    let totalPercentageForWeek = 0;
+    weekDates.forEach((_, index) => {
+      const markedHabits = habits.filter((habit) => habit.days[index]).length;
+      const totalHabitsCount = habits.length;
+      const percentage =
+        totalHabitsCount !== 0 ? (markedHabits / totalHabitsCount) * 100 : 0;
+      totalPercentageForWeek += percentage;
+    });
+    const averagePercentageForWeek = totalPercentageForWeek / 7;
+    return averagePercentageForWeek;
+  };
+
+  const averagePercentageForWeek = calculateAveragePercentageForWeek();
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -248,7 +263,8 @@ function HabitTrackerPageV2() {
         </div>
 
         <div className="col-span-3 bg-colorD4 text-center">
-          Your result of the week is:
+          Your result of the week is:{" "}
+          <p>{averagePercentageForWeek.toFixed(2)}%</p>
         </div>
       </div>
     </div>

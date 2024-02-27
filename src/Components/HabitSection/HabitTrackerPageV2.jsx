@@ -13,7 +13,7 @@ function HabitTrackerPageV2() {
 
   const handleAddClick = () => {
     if (!habitInput) return;
-    setHabits([...habits, { name: habitInput, days: [] }]);
+    setHabits([...habits, { name: habitInput, days: Array(7).fill(false) }]);
     setHabitInput("");
   };
 
@@ -41,10 +41,16 @@ function HabitTrackerPageV2() {
     setHabits(habits.filter((_, i) => i !== index));
   };
 
-  // Function to get dates for current week starting from Monday
+  const toggleDayMark = (habitIndex, dayIndex) => {
+    const updatedHabits = [...habits];
+    updatedHabits[habitIndex].days[dayIndex] =
+      !updatedHabits[habitIndex].days[dayIndex];
+    setHabits(updatedHabits);
+  };
+
   const getWeekDates = () => {
     const today = new Date();
-    const currentDay = today.getDay(); // 0 for Sunday, 1 for Monday, ..., 6 for Saturday
+    const currentDay = today.getDay();
     const mondayOffset = currentDay === 0 ? -6 : 1 - currentDay;
     const monday = new Date(today);
     monday.setDate(today.getDate() + mondayOffset);
@@ -111,12 +117,18 @@ function HabitTrackerPageV2() {
               <p>{habit.name}</p>
             )}
           </div>
-          {weekDates.map((date, index) => (
+
+          {weekDates.map((_, dayIndex) => (
             <div
-              key={index}
-              className="col-span-1 flex justify-center items-center"
+              key={dayIndex}
+              className="col-span-1 flex justify-center items-center cursor-pointer"
+              onClick={() => toggleDayMark(index, dayIndex)}
             >
-              <div className="w-5 h-5 bg-colorD1"></div>
+              <div
+                className={`w-5 h-5 ${
+                  habit.days[dayIndex] ? "bg-colorA4" : "bg-colorA3"
+                }`}
+              ></div>
             </div>
           ))}
 
@@ -151,11 +163,29 @@ function HabitTrackerPageV2() {
               </button>
             </>
           )}
-          <div className="col-span-1 text-center bg-colorC1">STATUS</div>
+
+          <div className="col-span-1 text-center bg-colorC1">
+            {`${Math.round(
+              (habit.days.filter((day) => day).length / 7) * 100
+            )}%`}
+          </div>
         </div>
       ))}
 
-      <div className="bg-colorC2">STATUS</div>
+      <div className="bg-colorC2 grid grid-cols-12 gap-2">
+        <div className="col-span-3 bg-colorD1 text-center">
+          You did n of m habits compeletly.
+        </div>
+        <div className="col-span-3 bg-colorD2 text-center">
+          Your best day of week was :
+        </div>
+        <div className="col-span-3 bg-colorD5 text-center">
+          Your best habit/s is/are ...
+        </div>
+        <div className="col-span-3 bg-colorD4 text-center">
+          Your result of week is:
+        </div>
+      </div>
     </div>
   );
 }

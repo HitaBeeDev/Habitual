@@ -1,8 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import usePersistantState from "../../usePersistentState";
 import { useHabits } from "../../ContextAPI/HabitContext";
 
 function HabitTrackerPageV2() {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isLargeScreen = windowWidth >= 1024; // Assuming large screen width starts from 1024px
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const {
     habits,
     editIndex,
@@ -31,6 +42,8 @@ function HabitTrackerPageV2() {
     percentages,
   } = useHabits();
 
+  const visibleWeekDates = isLargeScreen ? weekDates : [new Date()];
+
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -41,12 +54,15 @@ function HabitTrackerPageV2() {
         </div>
       </div>
 
-      <div className="grid grid-cols-12 gap-1">
-        <div className="col-span-2 text-center bg-colorA1">
+      <div className="lg:grid lg:grid-cols-12 w-full flex flex-row gap-1">
+        <div className="col-span-2 text-center w-full bg-colorA1">
           <p>HABITS</p>
         </div>
-        {weekDates.map((date, index) => (
-          <div key={index} className="col-span-1 text-center bg-colorA">
+        {visibleWeekDates.map((date, index) => (
+          <div
+            key={index}
+            className="lg:col-span-1 w-full text-center bg-colorA"
+          >
             <p
               style={{
                 fontWeight:
@@ -57,14 +73,23 @@ function HabitTrackerPageV2() {
             </p>
           </div>
         ))}
-        <div className="col-span-1 text-center bg-colorB4">edit</div>
-        <div className="col-span-1 text-center bg-colorB5">delete</div>
-        <div className="col-span-1 text-center bg-colorC1">STATUS</div>
+        <div className="col-span-1 text-center hidden lg:block bg-colorB4">
+          edit
+        </div>
+        <div className="col-span-1 text-center hidden lg:block bg-colorB5">
+          delete
+        </div>
+        <div className="col-span-1 text-center hidden lg:block bg-colorC1">
+          STATUS
+        </div>
       </div>
 
       {habits.map((habit, index) => (
-        <div key={index} className="grid grid-cols-12 gap-1 items-center">
-          <div className="col-span-2 text-center bg-colorA1">
+        <div
+          key={index}
+          className="lg:grid lg:grid-cols-12 w-full gap-1 flex flex-row justify-between items-center"
+        >
+          <div className="lg:col-span-2 w-full text-center bg-colorA1">
             {editIndex === index ? (
               <input
                 value={editInput}
@@ -76,10 +101,10 @@ function HabitTrackerPageV2() {
             )}
           </div>
 
-          {weekDates.map((_, dayIndex) => (
+          {visibleWeekDates.map((_, dayIndex) => (
             <div
               key={dayIndex}
-              className="col-span-1 flex justify-center items-center cursor-pointer"
+              className="lg:col-span-1 flex justify-center items-center cursor-pointer"
               onClick={() => toggleDayMark(index, dayIndex)}
             >
               <div
@@ -108,13 +133,13 @@ function HabitTrackerPageV2() {
           ) : (
             <>
               <button
-                className="col-span-1 text-center bg-colorB4"
+                className="col-span-1 hidden lg:block text-center bg-colorB4"
                 onClick={() => handleEditClick(index)}
               >
                 edit
               </button>
               <button
-                className="col-span-1 text-center bg-colorB5"
+                className="col-span-1 hidden lg:block text-center bg-colorB5"
                 onClick={() => handleDeleteClick(index)}
               >
                 delete
@@ -122,7 +147,7 @@ function HabitTrackerPageV2() {
             </>
           )}
 
-          <div className="col-span-1 text-center bg-colorC1">
+          <div className="col-span-1 hidden lg:block text-center bg-colorC1">
             {`${Math.round(
               (habit.days.filter((day) => day).length / 7) * 100
             )}%`}
@@ -130,8 +155,8 @@ function HabitTrackerPageV2() {
         </div>
       ))}
 
-      <div className="bg-colorC2 grid grid-cols-12 gap-1">
-        <div className="col-span-2 bg-colorC3">STATUS</div>
+      <div className="bg-colorC2 lg:grid lg:grid-cols-12 hidden gap-1">
+        <div className="col-span-2  bg-colorC3">STATUS</div>
         {percentages.map((percentage, index) => (
           <div key={index} className="col-span-1 text-center bg-colorA">
             <p>{percentage}%</p>
@@ -140,7 +165,7 @@ function HabitTrackerPageV2() {
         <div className="col-span-3 bg-colorA1">Quote</div>
       </div>
 
-      <div className="bg-colorC2 grid grid-cols-12 gap-2">
+      <div className="bg-colorC2 lg:grid lg:grid-cols-12 flex flex-col gap-2">
         <div className="col-span-3 bg-colorD1 text-center">
           You did {completedHabits} of {totalHabits} habits completely.
         </div>

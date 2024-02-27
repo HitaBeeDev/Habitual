@@ -7,6 +7,7 @@ function HabitTrackerPageV2() {
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState("");
 
+  // Functions for handling habit input
   const handleInputChange = (e) => {
     setHabitInput(e.target.value);
   };
@@ -17,6 +18,7 @@ function HabitTrackerPageV2() {
     setHabitInput("");
   };
 
+  // Functions for handling habit editing
   const handleEditClick = (index) => {
     setEditIndex(index);
     setEditInput(habits[index].name);
@@ -37,10 +39,12 @@ function HabitTrackerPageV2() {
     setEditInput(e.target.value);
   };
 
+  // Function for deleting a habit
   const handleDeleteClick = (index) => {
     setHabits(habits.filter((_, i) => i !== index));
   };
 
+  // Function for toggling habit completion for a specific day
   const toggleDayMark = (habitIndex, dayIndex) => {
     const updatedHabits = [...habits];
     updatedHabits[habitIndex].days[dayIndex] =
@@ -48,6 +52,7 @@ function HabitTrackerPageV2() {
     setHabits(updatedHabits);
   };
 
+  // Function for getting dates of the current week
   const getWeekDates = () => {
     const today = new Date();
     const currentDay = today.getDay();
@@ -63,16 +68,13 @@ function HabitTrackerPageV2() {
     return dates;
   };
 
-  const weekDates = getWeekDates();
-
+  // Function for formatting date
   const formatDate = (date) => {
     const options = { weekday: "short", day: "2-digit", month: "short" };
     return new Intl.DateTimeFormat("en-US", options).format(date);
   };
 
-  const today = new Date();
-  const formattedToday = formatDate(today);
-
+  // Calculate habit completion
   const calculateHabitCompletion = () => {
     let totalHabits = habits.length;
     let completedHabits = habits.filter((habit) =>
@@ -83,6 +85,38 @@ function HabitTrackerPageV2() {
 
   const { totalHabits, completedHabits } = calculateHabitCompletion();
 
+  // Get week dates
+  const weekDates = getWeekDates();
+
+  // Format today's date
+  const today = new Date();
+  const formattedToday = formatDate(today);
+
+  // Finding the best day or days of the week where completion percentage is 100%
+  const bestDays = [];
+  weekDates.forEach((date, index) => {
+    const markedHabits = habits.filter((habit) => habit.days[index]).length;
+    const totalHabitsCount = habits.length;
+    const percentage =
+      totalHabitsCount !== 0
+        ? Math.round((markedHabits / totalHabitsCount) * 100)
+        : 0;
+
+    if (percentage === 100) {
+      bestDays.push(formatDate(date));
+    }
+  });
+
+  const bestDayMessage =
+    bestDays.length > 0
+      ? bestDays.length === 1
+        ? `Your best day of the week was: ${formatDate(new Date(bestDays[0]))}`
+        : `Your best days of the week were: ${bestDays
+            .map((day) => formatDate(new Date(day)))
+            .join(", ")}`
+      : "You don't have any day with 100% completion.";
+
+  // Return JSX
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-1 bg-colorD3">
       <div className="flex flex-row justify-between">
@@ -202,7 +236,7 @@ function HabitTrackerPageV2() {
             </div>
           );
         })}
-        <div className="col-span-3 bg-colorA1">Qoute</div>
+        <div className="col-span-3 bg-colorA1">Quote</div>
       </div>
 
       <div className="bg-colorC2 grid grid-cols-12 gap-2">

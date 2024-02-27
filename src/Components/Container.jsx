@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import HomePage from "./HomePage";
 import ToDoListPage from "./ToDoListSection/ToDoListPage";
 import TimeTrackerPage from "./TimeTracker/TimeTrackerPage";
-import HabitTrackerPageV2 from "./HabitSection/HabitTrackerPageV2";
+import HabitTrackerPage from "./HabitSection/HabitTrackerPage";
 
 function Container() {
   const [isOpen, setIsOpen] = useState(true);
@@ -27,7 +27,7 @@ function Container() {
         <Routes>
           <Route path="/" element={<HomePage isOpen={isOpen} />} />
           <Route path="/dashboard" element={<HomePage isOpen={isOpen} />} />
-          <Route path="/habit-tracker" element={<HabitTrackerPageV2 />} />
+          <Route path="/habit-tracker" element={<HabitTrackerPage />} />
           <Route path="/ToDo-List" element={<ToDoListPage />} />
           <Route path="/Time-Tracker" element={<TimeTrackerPage />} />
         </Routes>

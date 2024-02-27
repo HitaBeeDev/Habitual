@@ -87,16 +87,21 @@ function HabitTrackerPageV2() {
   const today = new Date();
   const formattedToday = formatDate(today);
 
+  // Calculate markedHabits, totalHabitsCount, and percentage outside of JSX
+  const markedHabitsArray = weekDates.map(
+    (date, index) => habits.filter((habit) => habit.days[index]).length
+  );
+  const totalHabitsCount = habits.length;
+  const percentages = markedHabitsArray.map((markedHabits) =>
+    totalHabitsCount !== 0
+      ? Math.round((markedHabits / totalHabitsCount) * 100)
+      : 0
+  );
+
   const bestDays = [];
-  weekDates.forEach((date, index) => {
-    const markedHabits = habits.filter((habit) => habit.days[index]).length;
-    const totalHabitsCount = habits.length;
-    const percentage =
-      totalHabitsCount !== 0
-        ? Math.round((markedHabits / totalHabitsCount) * 100)
-        : 0;
+  percentages.forEach((percentage, index) => {
     if (percentage === 100) {
-      bestDays.push(formatDayOfWeek(date));
+      bestDays.push(formatDayOfWeek(weekDates[index]));
     }
   });
 
@@ -116,15 +121,9 @@ function HabitTrackerPageV2() {
 
   const calculateAveragePercentageForWeek = () => {
     let totalPercentageForWeek = 0;
-    weekDates.forEach((_, index) => {
-      const markedHabits = habits.filter((habit) => habit.days[index]).length;
-      const totalHabitsCount = habits.length;
-      const percentage =
-        totalHabitsCount !== 0 ? (markedHabits / totalHabitsCount) * 100 : 0;
-      totalPercentageForWeek += percentage;
-    });
+    percentages.forEach((percentage) => (totalPercentageForWeek += percentage));
     const averagePercentageForWeek = totalPercentageForWeek / 7;
-    return averagePercentageForWeek;
+    return Math.round(averagePercentageForWeek);
   };
 
   const averagePercentageForWeek = calculateAveragePercentageForWeek();
@@ -230,22 +229,11 @@ function HabitTrackerPageV2() {
 
       <div className="bg-colorC2 grid grid-cols-12 gap-1">
         <div className="col-span-2 bg-colorC3">STATUS</div>
-        {weekDates.map((date, index) => {
-          const markedHabits = habits.filter(
-            (habit) => habit.days[index]
-          ).length;
-          const totalHabitsCount = habits.length;
-          const percentage =
-            totalHabitsCount !== 0
-              ? Math.round((markedHabits / totalHabitsCount) * 100)
-              : 0;
-
-          return (
-            <div key={index} className="col-span-1 text-center bg-colorA">
-              <p>{percentage}%</p>
-            </div>
-          );
-        })}
+        {percentages.map((percentage, index) => (
+          <div key={index} className="col-span-1 text-center bg-colorA">
+            <p>{percentage}%</p>
+          </div>
+        ))}
         <div className="col-span-3 bg-colorA1">Quote</div>
       </div>
 

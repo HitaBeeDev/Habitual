@@ -8,7 +8,7 @@ function UpcomingTasks() {
       style={{
         maxHeight: "665px",
       }}
-      className="col-span-3 bg-colorJ26 shadow-xl rounded-lg p-5"
+      className="col-span-3 bg-colorD4 shadow-xl rounded-lg p-5"
     >
       <p className="text-sm font-semibold mb-3">Upcoming Tasks</p>
 
@@ -40,16 +40,16 @@ function UpcomingTasks() {
                       }`}
                     >
                       <div className="flex flex-col gap-2 justify-start items-start pl-1">
-                        <p className="text-center text-sm font-semibold text-colorJ1">
+                        <p className="text-center text-sm font-semibold text-colorC4">
                           {task.name}
                         </p>
 
-                        <p className="text-center text-xs text-colorJ1">
+                        <p className="text-center text-xs text-colorC4">
                           {task.description}
                         </p>
                       </div>
 
-                      <p className="text-center text-sm font-semibold text-colorJ1">
+                      <p className="text-center text-sm font-semibold text-colorC4">
                         {task.startTime} - {task.endTime}
                       </p>
                     </div>

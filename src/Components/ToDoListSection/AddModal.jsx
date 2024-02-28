@@ -14,19 +14,19 @@ function AddModal() {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-      <div className="w-full max-w-md p-5 bg-colorJ26 rounded-lg shadow-lg">
+      <div className="w-full max-w-md p-5 bg-colorD4 rounded-lg shadow-lg">
         <div className="flex justify-end">
           <button className="text-right" onClick={handleCloseModal}>
             <FontAwesomeIcon
               icon={faRectangleXmark}
-              className="text-colorJ1 hover:text-colorJ4 transition-all duration-500 w-6 h-6"
+              className="text-colorC4 hover:text-colorC5 transition-all duration-500 w-6 h-6"
             />
           </button>
         </div>
 
         <div className="flex flex-col justify-center items-start p-5">
           <div className="flex flex-col gap-2">
-            <label className="block text-sm text-colorJ1 font-semibold">
+            <label className="block text-sm text-colorC4 font-semibold">
               ✔️ Let's Get Started on a New To-Do!
             </label>
             <input
@@ -39,7 +39,7 @@ function AddModal() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="block mt-4 text-sm text-colorJ1 font-semibold">
+            <label className="block mt-4 text-sm text-colorC4 font-semibold">
               😊 Description of your to-do list:
             </label>
             <input
@@ -52,7 +52,7 @@ function AddModal() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="block mt-4 text-sm text-colorJ1 font-semibold">
+            <label className="block mt-4 text-sm text-colorC4 font-semibold">
               🗓️ When are you planning to handle this?
             </label>
             <input
@@ -64,7 +64,7 @@ function AddModal() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="block mt-4 text-sm text-colorJ1 font-semibold">
+            <label className="block mt-4 text-sm text-colorC4 font-semibold">
               ⏰ When will you begin?
             </label>
             <input
@@ -76,7 +76,7 @@ function AddModal() {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="block mt-4 text-sm text-colorJ1 font-semibold">
+            <label className="block mt-4 text-sm text-colorC4 font-semibold">
               ⏰ When will you be done?
             </label>
             <input
@@ -88,7 +88,7 @@ function AddModal() {
           </div>
 
           <div className="mt-7">
-            <p className="text-sm text-colorJ1 font-semibold">
+            <p className="text-sm text-colorC4 font-semibold">
               🌞 Please choose a priority tag:
             </p>
 

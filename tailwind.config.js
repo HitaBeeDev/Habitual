@@ -23,17 +23,25 @@ export default {
         colorC1: "#8785A2",
         colorC2: "#FF2E63",
         colorC3: "#BBDED6",
-        colorC4: "",
-        colorC5: "",
+        colorC4: "#393E46",
+        colorC5: "#FFE2E2",
+
+        //////////
+
+        colorD1: "#F6F6F6",
+        colorD2: "#6A2C70",
+        colorD3: "#F4EEFF",
+        colorD4: "#DCD6F7",
+        colorD5: "",
 
         //--------------------------------------------------
 
-        colorJ1: "#393E46",
+        colorJ1: "",
         colorJ2: "#CBF1F5",
         colorJ3: "#71C9CE",
-        colorJ4: "#FFE2E2",
+        colorJ4: "",
 
-        colorJ5: "#F6F6F6",
+        colorJ5: "",
         colorJ6: "#FFF5E4",
         colorJ7: "#FFE3E1",
         colorJ8: "#FFD1D1",
@@ -45,7 +53,7 @@ export default {
         colorJ13: "#F9ED69",
         colorJ14: "#F08A5D",
         colorJ15: "#B83B5E",
-        colorJ16: "#6A2C70",
+        colorJ16: "",
 
         colorJ17: "#AD8B73",
         colorJ18: "#CEAB93",
@@ -57,8 +65,8 @@ export default {
         colorJ23: "#EAFFD0",
         colorJ24: "#95E1D3",
 
-        colorJ25: "#F4EEFF",
-        colorJ26: "#DCD6F7",
+        colorJ25: "",
+        colorJ26: "",
         colorJ27: "#A6B1E1",
         colorJ28: "#424874",
       },

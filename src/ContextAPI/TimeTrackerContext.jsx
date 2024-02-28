@@ -126,6 +126,12 @@ export const TimeTrackerProvider = ({ children }) => {
     return total + project.timeLeft;
   }, 0);
 
+  const handleReset = () => {
+    setTimeLeft(initialTime);
+    setIsActive(false);
+    setProjects([]);
+  };
+
   return (
     <TimeTrackerContext.Provider
       value={{
@@ -155,6 +161,7 @@ export const TimeTrackerProvider = ({ children }) => {
         editedProjectName,
         setEditedProjectName,
         handleEdit,
+        handleReset,
       }}
     >
       {children}

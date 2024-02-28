@@ -19,7 +19,7 @@ function WelcomeBanner() {
       <button onClick={handleAddButtonClick}>
         <FontAwesomeIcon
           icon={faSquarePlus}
-          className="text-colorB3 mt-2 hover:text-colorB4 transition-all duration-500 w-7 h-7"
+          className="hidden lg:block text-colorB3 mt-2 hover:text-colorB4 transition-all duration-500 w-7 h-7"
         />
       </button>
     </div>

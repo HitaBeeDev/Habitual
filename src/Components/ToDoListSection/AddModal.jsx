@@ -19,7 +19,7 @@ function AddModal() {
           <button className="text-right" onClick={handleCloseModal}>
             <FontAwesomeIcon
               icon={faRectangleXmark}
-              className="text-colorB3 mt-2 hover:text-colorB4 transition-all duration-500 w-5 h-5"
+              className="text-colorB3 mt-2 hover:text-colorB4 transition-all duration-500 w-6 h-6"
             />
           </button>
         </div>

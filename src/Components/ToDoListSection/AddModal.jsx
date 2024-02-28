@@ -35,6 +35,7 @@ function AddModal() {
               className="p-2 w-52 rounded-lg text-xs"
               value={newTask.name}
               onChange={(e) => updateNewTask("name", e.target.value)}
+              required
             />
           </div>
 
@@ -48,6 +49,7 @@ function AddModal() {
               className="p-2 ml-auto w-52 rounded-lg text-xs"
               value={newTask.description}
               onChange={(e) => updateNewTask("description", e.target.value)}
+              required
             />
           </div>
 
@@ -60,6 +62,7 @@ function AddModal() {
               value={newTask.date}
               onChange={(e) => updateNewTask("date", e.target.value)}
               className="p-2 w-40 rounded-lg text-xs"
+              required
             />
           </div>
 
@@ -72,6 +75,7 @@ function AddModal() {
               value={newTask.startTime}
               onChange={(e) => updateNewTask("startTime", e.target.value)}
               className="p-2 w-28 rounded-lg text-xs"
+              required
             />
           </div>
 
@@ -84,6 +88,7 @@ function AddModal() {
               value={newTask.endTime}
               onChange={(e) => updateNewTask("endTime", e.target.value)}
               className="p-2 w-28 rounded-lg text-xs"
+              required
             />
           </div>
 
@@ -104,6 +109,7 @@ function AddModal() {
                       : "bg-colorC3"
                   }`}
                   onClick={() => updateNewTask("priority", priority)}
+                  required
                 >
                   {priority} Priority
                 </button>

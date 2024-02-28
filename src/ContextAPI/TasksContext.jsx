@@ -19,6 +19,38 @@ export const TaskProvider = ({ children }) => {
     priority: "",
   });
 
+  const handleTaskAddition = () => {
+    // Check if any required fields are empty
+    if (
+      !newTask.name ||
+      !newTask.description ||
+      !newTask.date ||
+      !newTask.startTime ||
+      !newTask.endTime ||
+      !newTask.priority
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    const uniqueId = `task-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+    const taskWithId = { ...newTask, id: uniqueId };
+
+    setTasks([...tasks, taskWithId]);
+    handleCloseModal();
+  };
+
+
+
+    const updatedTasks = tasks.map((task) =>
+      task.id === newTask.id ? newTask : task
+    );
+    setTasks(updatedTasks);
+    setIsEditing(false);
+    setEditTaskIndex(null);
+    handleCloseModal();
+  };
+
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);

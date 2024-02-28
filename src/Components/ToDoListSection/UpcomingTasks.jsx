@@ -40,16 +40,16 @@ function UpcomingTasks() {
                       }`}
                     >
                       <div className="flex flex-col gap-2 justify-start items-start pl-1">
-                        <p className="text-center text-sm font-semibold text-colorB4">
+                        <p className="text-center text-sm font-semibold text-colorJ1">
                           {task.name}
                         </p>
 
-                        <p className="text-center text-xs text-colorB4">
+                        <p className="text-center text-xs text-colorJ1">
                           {task.description}
                         </p>
                       </div>
 
-                      <p className="text-center text-sm font-semibold text-colorB4">
+                      <p className="text-center text-sm font-semibold text-colorJ1">
                         {task.startTime} - {task.endTime}
                       </p>
                     </div>

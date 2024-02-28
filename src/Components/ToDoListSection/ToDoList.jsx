@@ -40,7 +40,7 @@ function ToDoList() {
                       : "none",
                   }}
                 >
-                  <div className="lg:grid bg-colorB1 h-20 grid-cols-12 pl-3 pr-3 gap-5 items-center rounded-lg shadow-xl">
+                  <div className="lg:grid bg-colorB1 h-20 grid-cols-12 pl-8 gap-5 items-center rounded-lg shadow-xl">
                     <div className="col-span-5 flex flex-row gap-5 justify-start items-center">
                       <input
                         className={`cursor-pointer w-5 border border-colorJ16 h-5 rounded-full ${
@@ -85,19 +85,19 @@ function ToDoList() {
                     </div>
 
                     <div className="col-span-2 flex items-center justify-center">
-                      <p className="text-center tracking-widest text-sm font-medium text-colorB4">
+                      <p className="text-center tracking-widest text-sm font-medium text-colorJ1">
                         {task.date}
                       </p>
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-sm tracking-widest	 font-medium text-colorB4">
+                      <p className="text-center text-sm tracking-widest	 font-medium text-colorJ1">
                         {task.startTime}
                       </p>
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-sm tracking-widest	 font-medium text-colorB4">
+                      <p className="text-center text-sm tracking-widest	 font-medium text-colorJ1">
                         {task.endTime}
                       </p>
                     </div>
@@ -107,9 +107,9 @@ function ToDoList() {
                         task.priority === "High"
                           ? "bg-colorC2 border-colorC2 text-colorA2"
                           : task.priority === "Medium"
-                          ? "bg-colorA5 border-colorA5 text-colorB4"
+                          ? "bg-colorA5 border-colorA5 text-colorJ1"
                           : task.priority === "Low"
-                          ? "bg-colorC3 border-colorC3 text-colorB4"
+                          ? "bg-colorC3 border-colorC3 text-colorJ1"
                           : ""
                       }`}
                     >

@@ -1,6 +1,7 @@
 import { useTasks } from "../../ContextAPI/TasksContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import todoImage2 from "../../assets/todo3.png";
 
 function ToDoList() {
   const {
@@ -15,6 +16,22 @@ function ToDoList() {
     sortedTasks,
     generateTaskIdentifier,
   } = useTasks();
+
+  if (sortedTasks.length === 0) {
+    return (
+      <div
+        className="flex flex-col gap-3 justify-center items-center h-full bg-colorJ26 rounded-lg shadow-xl mt-5 p-5"
+        style={{
+          maxHeight: "480px",
+        }}
+      >
+        <img className="w-52" src={todoImage2} />
+        <p className="text-lg text-colorJ1 font-semibold">
+          Looks like you're all caught up! No to-dos on the list right now!
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div

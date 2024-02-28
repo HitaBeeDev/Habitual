@@ -4,35 +4,63 @@ export default {
   theme: {
     extend: {
       colors: {
-        colorA1: "#8ecae6",
-        colorA2: "#219ebc",
-        colorA3: "#023047",
-        colorA4: "#ffb703",
-        colorA5: "#fb8500",
-        ///////////////////////
-        colorB1: "#606c38",
-        colorB2: "#283618",
-        colorB3: "#fefae0",
-        colorB4: "#dda15e",
-        colorB5: "#bc6c25",
-        ///////////////////////
-        colorC1: "#cdb4db",
-        colorC2: "#ffc8dd",
-        colorC3: "#ffafcc",
-        colorC4: "#bde0fe",
-        colorC5: "#a2d2ff",
-        ///////////////////////
-        colorD1: "#264653",
-        colorD2: "#2a9d8f",
-        colorD3: "#e9c46a",
-        colorD4: "#f4a261",
-        colorD5: "#e76f51",
-        ///////////////////////
-        colorE1: "#ccd5ae",
-        colorE2: "#e9edc9",
-        colorE3: "#fefae0",
-        colorE4: "#faedcd",
-        colorE5: "#d4a373",
+        colorA1: "#222831",
+        colorA2: "#fdf0d5",
+        colorA3: "#EEEEEE",
+        colorA4: "#E3FDFD",
+        colorA5: "#A6E3E9",
+
+        //////////
+
+        colorB1: "#F9F7F7",
+        colorB2: "#DBE2EF",
+        colorB3: "#3F72AF",
+        colorB4: "#112D4E",
+        colorB5: "#FFC7C7",
+
+        //////////
+
+        colorC1: "#8785A2",
+        colorC2: "#FF2E63",
+        colorC3: "#BBDED6",
+        colorC4: "",
+        colorC5: "",
+
+        //--------------------------------------------------
+
+        colorJ1: "#393E46",
+        colorJ2: "#CBF1F5",
+        colorJ3: "#71C9CE",
+        colorJ4: "#FFE2E2",
+
+        colorJ5: "#F6F6F6",
+        colorJ6: "#FFF5E4",
+        colorJ7: "#FFE3E1",
+        colorJ8: "#FFD1D1",
+
+        colorJ9: "#08D9D6",
+        colorJ10: "#252A34",
+        colorJ12: "#EAEAEA",
+
+        colorJ13: "#F9ED69",
+        colorJ14: "#F08A5D",
+        colorJ15: "#B83B5E",
+        colorJ16: "#6A2C70",
+
+        colorJ17: "#AD8B73",
+        colorJ18: "#CEAB93",
+        colorJ19: "#E3CAA5",
+        colorJ20: "#FFFBE9",
+
+        colorJ21: "#F38181",
+        colorJ22: "#FCE38A",
+        colorJ23: "#EAFFD0",
+        colorJ24: "#95E1D3",
+
+        colorJ25: "#F4EEFF",
+        colorJ26: "#DCD6F7",
+        colorJ27: "#A6B1E1",
+        colorJ28: "#424874",
       },
     },
   },

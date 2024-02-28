@@ -10,9 +10,7 @@ function Container() {
   const [isOpen, setIsOpen] = useState(false);
 
   const sidebarWidth = isOpen ? "lg:w-48" : "lg:w-12";
-  const contentMargin = isOpen
-    ? "ml-10 mr-10 lg:ml-32"
-    : "ml-10 mr-10 lg:ml-20";
+  const contentMargin = isOpen ? "ml-10 mr-10 lg:ml-32" : "ml-5 mr-5 lg:ml-20";
 
   return (
     <div className="h-screen flex overflow-hidden">

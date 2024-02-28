@@ -74,29 +74,33 @@ export const TaskProvider = ({ children }) => {
   };
 
   const handleTaskAddition = () => {
-    setTasks([...tasks, newTask]);
+    const uniqueId = `task-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
+    const taskWithId = { ...newTask, id: uniqueId };
+
+    setTasks([...tasks, taskWithId]);
     handleCloseModal();
   };
 
   const handleTaskSave = () => {
-    const updatedTasks = [...tasks];
-    updatedTasks[editTaskIndex] = newTask;
+    const updatedTasks = tasks.map((task) =>
+      task.id === newTask.id ? newTask : task
+    );
     setTasks(updatedTasks);
     setIsEditing(false);
     setEditTaskIndex(null);
     handleCloseModal();
   };
 
-  const handleTaskDelete = (index) => {
-    const updatedTasks = [...tasks];
-    updatedTasks.splice(index, 1);
+  const handleTaskDelete = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
     setTasks(updatedTasks);
   };
 
-  const handleTaskEditClick = (index) => {
+  const handleTaskEditClick = (taskId) => {
+    const taskToEdit = tasks.find((task) => task.id === taskId);
     setIsEditing(true);
-    setEditTaskIndex(index);
-    setNewTask({ ...tasks[index] });
+    setEditTaskIndex(tasks.indexOf(taskToEdit)); // For compatibility with existing code
+    setNewTask({ ...taskToEdit });
     setShowModal(true);
   };
 
@@ -118,7 +122,6 @@ export const TaskProvider = ({ children }) => {
     setNewTask((prev) => ({ ...prev, [field]: value }));
   };
 
-  // Group tasks by date
   const groupedTasks = tasks.reduce((acc, task) => {
     acc[task.date] = [...(acc[task.date] || []), task];
     return acc;

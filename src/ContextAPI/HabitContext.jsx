@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import usePersistentState from "../usePersistentState";
+import habitQuotes from "../Components/HabitSection/habitQuotes";
 
 const HabitContext = createContext();
 
@@ -10,6 +11,15 @@ export const HabitProvider = ({ children }) => {
   const [habits, setHabits] = usePersistentState("habits", []);
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState("");
+  const [quoteIndex, setQuoteIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setQuoteIndex((prevIndex) => (prevIndex + 1) % habitQuotes.length);
+    }, 300000); // Change quote every 5 minutes
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleInputChange = (e) => {
     setHabitInput(e.target.value);
@@ -110,16 +120,21 @@ export const HabitProvider = ({ children }) => {
   const bestDayMessage =
     bestDays.length > 0
       ? bestDays.length === 1
-        ? `Your best day of the week was: ${bestDays[0]}`
-        : `Your best days of the week were: ${bestDays.join(", ")}`
-      : "You don't have any day with 100% completion.";
+        ? `Hooray! Your best day of the week was: ${bestDays[0]}`
+        : `Yay! Your best days of the week were: ${bestDays.join(", ")}`
+      : "Oops! It seems like you haven't completed any day 100%. Don't worry, there's always tomorrow!";
 
   const bestHabits = habits.filter((habit) => habit.days.every((day) => day));
 
-  const bestHabitMessage =
-    bestHabits.length > 0
-      ? bestHabits.map((habit) => habit.name).join(", ")
-      : "No habits with 100% completion this week.";
+  let bestHabitMessage;
+  if (bestHabits.length > 0) {
+    bestHabitMessage = `Keep up the great work! 🌱 Your best habits this week: ${bestHabits
+      .map((habit) => habit.name)
+      .join(", ")}. `;
+  } else {
+    bestHabitMessage =
+      "No habits with 100% completion this week. Don't worry, there's always room for improvement!";
+  }
 
   const calculateAveragePercentageForWeek = () => {
     let totalPercentageForWeek = 0;
@@ -172,6 +187,7 @@ export const HabitProvider = ({ children }) => {
         weekDates,
         percentages,
         visibleWeekDates,
+        quoteIndex,
       }}
     >
       {children}

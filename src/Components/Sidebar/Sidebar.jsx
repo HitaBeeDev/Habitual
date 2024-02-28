@@ -7,8 +7,8 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
   return (
     <div
       className={`${
-        isOpen ? "w-72 bg-colorA2" : "lg:w-24 w-0"
-      } lg:bg-colorA2 flex flex-col ${
+        isOpen ? "w-72 bg-colorA1" : "lg:w-24 w-0"
+      } lg:bg-colorA1 flex flex-col ${
         isOpen ? "justify-center lg:justify-between" : "justify-center"
       } h-screen p-10 relative duration-300`}
     >
@@ -20,7 +20,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
       >
         <FontAwesomeIcon
           icon={faBarsStaggered}
-          className="w-5 h-5 text-colorA4 hover:text-colorA5 transition-all duration-500"
+          className="w-5 h-5 text-colorB3 hover:text-colorA5 transition-all duration-500"
         />
       </button>
 

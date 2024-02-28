@@ -21,6 +21,17 @@ export default function HabitList() {
     visibleWeekDates,
   } = useHabits();
 
+  if (habits.length === 0) {
+    return (
+      <div className="bg-colorB1 flex justify-center items-center mt-3 h-full shadow-lg rounded-lg">
+        <p className="text-center text-lg font-semibold text-colorB3">
+          Looks like you haven't added any habits yet! Let's get started on
+          creating some positive ones!
+        </p>
+      </div>
+    );
+  }
+
   return (
     <>
       {habits.map((habit, index) => (

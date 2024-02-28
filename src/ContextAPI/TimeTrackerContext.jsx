@@ -55,13 +55,15 @@ export const TimeTrackerProvider = ({ children }) => {
   };
 
   const handleAddProject = () => {
-    if (projectName) {
+    if (projectName.trim() !== "") {
       setProjects([
         ...projects,
         { name: projectName, timeLeft: inputMinutes * 60, isActive: false },
       ]);
       setProjectName("");
       setTimerSet(false); // Reset timer set state
+    } else {
+      alert("Please enter a project name."); // Display an error message
     }
   };
 
@@ -162,6 +164,9 @@ export const TimeTrackerProvider = ({ children }) => {
         setEditedProjectName,
         handleEdit,
         handleReset,
+        handleDelete,
+        handleCancelEdit,
+        handleSaveEdit,
       }}
     >
       {children}

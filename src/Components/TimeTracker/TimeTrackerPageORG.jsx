@@ -29,9 +29,9 @@ function TimeTrackerPage() {
     setEditedProjectName,
     handleEdit,
     handleReset,
-    handleSaveEdit,
-    handleCancelEdit,
     handleDelete,
+    handleCancelEdit,
+    handleSaveEdit,
   } = useTimeTracker();
 
   return (
@@ -73,22 +73,6 @@ function TimeTrackerPage() {
           </text>
         </svg>
 
-        <button
-          onClick={handleStartPause}
-          className={`mt-4 ${
-            isActive ? "bg-red-500" : "bg-green-500"
-          } hover:bg-red-700 text-white font-bold py-2 px-4 rounded`}
-        >
-          {isActive ? "Pause" : "Start"}
-        </button>
-
-        <button
-          onClick={handleReset} // Added onClick handler for reset button
-          className="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Reset
-        </button>
-
         <div className="mt-10">
           <label>Your project name:</label>
           <input
@@ -118,6 +102,22 @@ function TimeTrackerPage() {
             Save
           </button>
         </form>
+
+        <button
+          onClick={handleStartPause}
+          className={`mt-4 ${
+            isActive ? "bg-red-500" : "bg-green-500"
+          } hover:bg-red-700 text-white font-bold py-2 px-4 rounded`}
+        >
+          {isActive ? "Pause" : "Start"}
+        </button>
+
+        <button
+          onClick={handleReset} // Added onClick handler for reset button
+          className="mt-4 bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Reset
+        </button>
       </div>
 
       <div className="col-span-4 bg-colorB3">

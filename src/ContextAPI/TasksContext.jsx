@@ -19,6 +19,10 @@ export const TaskProvider = ({ children }) => {
     priority: "",
   });
 
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
   const handleTaskAddition = () => {
     // Check if any required fields are empty
     if (
@@ -40,7 +44,20 @@ export const TaskProvider = ({ children }) => {
     handleCloseModal();
   };
 
-
+  const handleTaskSave = () => {
+    if (
+      !newTask.name ||
+      !newTask.description ||
+      !newTask.date ||
+      !newTask.startTime ||
+      !newTask.endTime ||
+      !newTask.priority
+    ) {
+      alert(
+        "Please make sure to fill in all required fields before proceeding."
+      );
+      return;
+    }
 
     const updatedTasks = tasks.map((task) =>
       task.id === newTask.id ? newTask : task
@@ -50,10 +67,6 @@ export const TaskProvider = ({ children }) => {
     setEditTaskIndex(null);
     handleCloseModal();
   };
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   const getCurrentDate = () => {
     const months = [
@@ -103,24 +116,6 @@ export const TaskProvider = ({ children }) => {
       endTime: "",
       priority: "",
     });
-  };
-
-  const handleTaskAddition = () => {
-    const uniqueId = `task-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-    const taskWithId = { ...newTask, id: uniqueId };
-
-    setTasks([...tasks, taskWithId]);
-    handleCloseModal();
-  };
-
-  const handleTaskSave = () => {
-    const updatedTasks = tasks.map((task) =>
-      task.id === newTask.id ? newTask : task
-    );
-    setTasks(updatedTasks);
-    setIsEditing(false);
-    setEditTaskIndex(null);
-    handleCloseModal();
   };
 
   const handleTaskDelete = (taskId) => {

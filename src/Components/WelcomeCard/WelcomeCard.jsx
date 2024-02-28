@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import quotes from "./quoteDatas";
-import welcomeCardImage from "../../assets/hey.gif";
+import welcomeCardImage from "../../assets/welcomeCard1.png";
 
 function WelcomeCard() {
   const [quoteIndex, setQuoteIndex] = useState(0);

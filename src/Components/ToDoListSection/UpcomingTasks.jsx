@@ -4,7 +4,7 @@ function UpcomingTasks() {
   const { groupedTasks, checkedTasks, generateTaskIdentifier } = useTasks();
 
   return (
-    <div className="col-span-4 bg-colorB3/20 shadow-xl rounded-lg p-3">
+    <div className="col-span-3 bg-colorB3/20 shadow-xl rounded-lg p-3">
       <p className="text-sm font-semibold mb-3">Upcoming Tasks</p>
 
       <div>
@@ -22,31 +22,30 @@ function UpcomingTasks() {
                   <li key={index}>
                     <p className="text-xs font-semibold text-colorB4">{date}</p>
 
-                    <div className="shadow-xl rounded-lg p-3 bg-colorB1 grid grid-cols-12 gap-1 mt-2 items-center justify-between">
-                      <p className="col-span-4 text-center text-xs font-semibold text-colorB4 h-7 p-1 rounded-lg border-2 border-colorB2">
-                        {task.name}
-                      </p>
+                    <div
+                      className={`shadow-xl rounded-lg p-3 pr-5 bg-colorB1 flex flex-row gap-1 mt-2 items-center 
+                      justify-between  ${
+                        task.priority === "High"
+                          ? "border-l-8 border-colorC2"
+                          : task.priority === "Medium"
+                          ? " border-colorA5"
+                          : task.priority === "Low"
+                          ? " border-colorC3"
+                          : ""
+                      }`}
+                    >
+                      <div className="flex flex-col gap-2 justify-start items-start pl-1">
+                        <p className="text-center text-sm font-semibold text-colorB4">
+                          {task.name}
+                        </p>
 
-                      <p className="col-span-3 text-center text-[0.4rem] font-semibold text-colorB4 h-7 p-1 rounded-lg border-2 border-colorB2">
-                        {task.description}
-                      </p>
+                        <p className="text-center text-xs text-colorB4">
+                          {task.description}
+                        </p>
+                      </div>
 
-                      <p className="col-span-3 text-center text-[0.6rem] font-semibold text-colorB4 h-7 p-1 rounded-lg border-2 border-colorB2">
+                      <p className="text-center text-sm font-semibold text-colorB4">
                         {task.startTime} - {task.endTime}
-                      </p>
-
-                      <p
-                        className={`col-span-2 text-center text-xs font-semibold text-colorB4 h-7 p-1 rounded-lg border-2 border-colorB2 ${
-                          task.priority === "High"
-                            ? "bg-colorC2 border-colorC2"
-                            : task.priority === "Medium"
-                            ? "bg-colorA5 border-colorA5"
-                            : task.priority === "Low"
-                            ? "bg-colorC3 border-colorC3"
-                            : ""
-                        }`}
-                      >
-                        {task.priority}
                       </p>
                     </div>
                   </li>

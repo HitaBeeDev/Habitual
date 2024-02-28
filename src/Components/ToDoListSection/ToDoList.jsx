@@ -34,7 +34,7 @@ function ToDoList() {
                   }}
                 >
                   <div className="hidden lg:grid  bg-colorB1 h-20 grid-cols-12 pl-3 pr-3 gap-5 items-center rounded-lg shadow-xl">
-                    <div className="col-span-4 flex flex-row gap-5 justify-start items-center">
+                    <div className="col-span-5 flex flex-row gap-5 justify-start items-center">
                       <input
                         className={`cursor-pointer w-5 border border-colorB5 h-5 rounded-full ${
                           checkedTasks.includes(taskIdentifier)
@@ -96,7 +96,7 @@ function ToDoList() {
                     </div>
 
                     <div
-                      className={`col-span-2 flex items-center justify-center rounded-lg h-10 ${
+                      className={`col-span-1 flex items-center content-center justify-center rounded-lg w-24 h-9 ${
                         task.priority === "High"
                           ? "bg-colorC2 border-colorC2 text-colorA2"
                           : task.priority === "Medium"

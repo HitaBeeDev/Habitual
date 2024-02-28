@@ -7,7 +7,7 @@ function ToDoListAndWelcomeSection() {
   const { showModal } = useTasks();
 
   return (
-    <div className="col-span-8 mb-5">
+    <div className="col-span-9 mb-5">
       <WelcomeBanner />
 
       {showModal && <AddModal />}

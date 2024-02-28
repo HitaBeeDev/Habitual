@@ -1,6 +1,7 @@
 import { useHabits } from "../../ContextAPI/HabitContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import habitImage from "../../assets/habit.gif";
 
 export default function WelcomeBanner() {
   const { habitInput, handleInputChange, handleAddClick } = useHabits();
@@ -16,20 +17,24 @@ export default function WelcomeBanner() {
         </p>
       </div>
 
-      <div className="flex flex-row gap-3 mt-5 justify-center items-center h-8">
-        <input
-          value={habitInput}
-          onChange={handleInputChange}
-          type="text"
-          className="rounded-lg text-xs p-2 pl-3 w-52"
-          placeholder="Add a new habit..."
-        />
-        <button onClick={handleAddClick}>
-          <FontAwesomeIcon
-            icon={faSquarePlus}
-            className="text-colorA3 mt-2 hover:text-colorA4 transition-all duration-500 w-6 h-6"
+      <div className="flex flex-row gap-3 justify-center items-center">
+        <div className="flex flex-row justify-between items-center mt-8 gap-3">
+          <input
+            value={habitInput}
+            onChange={handleInputChange}
+            type="text"
+            className="rounded-lg text-xs p-2 pl-3 w-52 h-8"
+            placeholder="Add a new habit..."
           />
-        </button>
+          <button onClick={handleAddClick}>
+            <FontAwesomeIcon
+              icon={faSquarePlus}
+              className="text-colorA3 mt-2 hover:text-colorA4 transition-all duration-500 w-6 h-6"
+            />
+          </button>
+        </div>
+
+        <img className="w-32" src={habitImage} />
       </div>
     </div>
   );

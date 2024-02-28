@@ -4,7 +4,12 @@ function UpcomingTasks() {
   const { groupedTasks, checkedTasks, generateTaskIdentifier } = useTasks();
 
   return (
-    <div className="col-span-3 bg-colorB3/20 shadow-xl rounded-lg p-3">
+    <div
+      style={{
+        maxHeight: "665px",
+      }}
+      className="col-span-3 bg-colorJ26 shadow-xl rounded-lg p-3"
+    >
       <p className="text-sm font-semibold mb-3">Upcoming Tasks</p>
 
       <div>

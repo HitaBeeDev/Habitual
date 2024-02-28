@@ -17,7 +17,14 @@ function ToDoList() {
   } = useTasks();
 
   return (
-    <div className="hidden lg:block mt-5 bg-colorB3/20 rounded-lg shadow-xl p-1 pl-5 pr-5 pb-5">
+    <div
+      className="lg:block mt-5 overflow-auto scroll-smooth bg-colorJ26 rounded-lg shadow-xl p-1 pl-10 pr-10 pb-5"
+      style={{
+        maxHeight: "480px",
+        overflowY: "scroll",
+        scrollbarWidth: "thin",
+      }}
+    >
       {sortedTasks.map(([date, tasks]) => (
         <div key={date}>
           <p className=" text-sm font-semibold mb-2 mt-5">{date}</p>
@@ -33,20 +40,20 @@ function ToDoList() {
                       : "none",
                   }}
                 >
-                  <div className="hidden lg:grid  bg-colorB1 h-20 grid-cols-12 pl-3 pr-3 gap-5 items-center rounded-lg shadow-xl">
+                  <div className="lg:grid bg-colorB1 h-20 grid-cols-12 pl-3 pr-3 gap-5 items-center rounded-lg shadow-xl">
                     <div className="col-span-5 flex flex-row gap-5 justify-start items-center">
                       <input
-                        className={`cursor-pointer w-5 border border-colorB5 h-5 rounded-full ${
+                        className={`cursor-pointer w-5 border border-colorJ16 h-5 rounded-full ${
                           checkedTasks.includes(taskIdentifier)
-                            ? "bg-colorB5"
-                            : "bg-colorB5/10"
+                            ? "bg-colorJ16"
+                            : "bg-colorJ25"
                         } appearance-none`}
                         type="checkbox"
                         checked={checkedTasks.includes(taskIdentifier)}
                         onChange={() => handleCheckboxChange(taskIdentifier)}
                       />
 
-                      <div className="flex flex-col gap-2">
+                      <div className="flex flex-col gap-1">
                         {isEditing && editTaskIndex === index ? (
                           <input
                             type="text"
@@ -56,12 +63,12 @@ function ToDoList() {
                             }
                           />
                         ) : (
-                          <p className="tracking-widest	text-sm font-semibold text-colorB4">
+                          <p className="tracking-wider text-md font-bold text-colorJ1">
                             {task.name}
                           </p>
                         )}
 
-                        <p className="text-center text-xs font-normal text-colorB4">
+                        <p className="text-center text-sm font-normal text-colorJ1">
                           {isEditing && editTaskIndex === index ? (
                             <input
                               type="text"
@@ -115,13 +122,13 @@ function ToDoList() {
                       <button onClick={() => handleTaskEditClick(task.id)}>
                         <FontAwesomeIcon
                           icon={faPenToSquare}
-                          className="text-colorB3 text-center w-4 h-4"
+                          className="text-colorJ16 text-center w-4 h-4"
                         />
                       </button>
                       <button onClick={() => handleTaskDelete(task.id)}>
                         <FontAwesomeIcon
                           icon={faTrashCan}
-                          className="text-colorB3 text-center w-4 h-4"
+                          className="text-colorJ16 text-center w-4 h-4"
                         />
                       </button>
                     </div>

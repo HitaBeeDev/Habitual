@@ -5,7 +5,7 @@ function ReportWidgets() {
     useHabits();
 
   return (
-    <div className="grid grid-rows-3 mb-5 xl:h-full h-64 gap-5">
+    <div className="grid grid-rows-3 mb-5 lg:h-full h-64 gap-3">
       <div className="rounded-md p-3 flex justify-center items-center bg-colorI2">
         <>
           {averagePercentageForWeek >= 75 &&

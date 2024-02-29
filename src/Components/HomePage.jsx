@@ -22,7 +22,7 @@ function HomePage() {
   ];
 
   return (
-    <div className="flex flex-col overflow-hidden mt-24 lg:mt-5 lg:mb-5 gap-10 lg:p-4 lg:grid lg:grid-cols-12 overflow-x-hidden">
+    <div className="flex flex-col mt-24 lg:mt-5 lg:mb-5 gap-5 lg:p-4 lg:grid lg:grid-cols-12 overflow-x-hidden">
       <div className="lg:col-span-12">
         <WelcomeCard />
       </div>

@@ -19,7 +19,7 @@ function UpcomingTasks() {
 
       <div>
         {Object.entries(groupedTasks)
-          .sort(compareDates) // Sort the entries by date
+          .sort(compareDates)
           .map(([date, tasks], index) => (
             <div key={date}>
               {index !== 0 && <div style={{ marginBottom: "20px" }}></div>}
@@ -51,11 +51,11 @@ function UpcomingTasks() {
                         }`}
                       >
                         <div className="flex flex-col gap-2 justify-start items-start pl-1">
-                          <p className="text-center text-sm font-semibold text-colorC4">
+                          <p className="text-left text-sm font-semibold text-colorC4">
                             {task.name}
                           </p>
 
-                          <p className="text-center text-xs text-colorC4">
+                          <p className="text-left text-xs text-colorC4">
                             {task.description}
                           </p>
                         </div>

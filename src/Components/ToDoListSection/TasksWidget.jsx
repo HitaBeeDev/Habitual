@@ -52,9 +52,6 @@ function TasksWidget() {
                       <p className="text-sm font-semibold text-colorI1">
                         {task.name}
                       </p>
-                      <p className="text-xs font-normal text-colorI1">
-                        {task.description}
-                      </p>
                     </div>
 
                     <p className="text-xs font-medium text-colorI1">

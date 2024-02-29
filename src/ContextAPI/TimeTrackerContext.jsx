@@ -91,7 +91,7 @@ export const TimeTrackerProvider = ({ children }) => {
 
   const getTabClassName = (type) => {
     return `text-md font-semibold w-36 text-center flex flex-col items-center justify-center h-12 rounded-lg text-colorJ1 ${
-      sessionType === type ? "bg-colorJ15 text-colorJ5" : "bg-colorJ24"
+      sessionType === type ? "bg-colorE5 text-colorE1" : "bg-colorJ24"
     }`;
   };
 

@@ -33,7 +33,7 @@ function TimeTrackerPage() {
 
   return (
     <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-8 lg:grid lg:grid-cols-12">
-      <div className="hidden col-span-7 lg:flex flex-col gap-5 shadow-xl rounded-lg justify-between p-12 items-center bg-colorJ12">
+      <div className="hidden col-span-7 lg:flex flex-col gap-5 shadow-xl rounded-lg justify-between p-12 items-center bg-colorE1">
         <div className="flex flex-row gap-10 justify-center items-center">
           <button
             onClick={() => handleSessionChange("Pomodoro")}
@@ -100,7 +100,7 @@ function TimeTrackerPage() {
                   >
                     <FontAwesomeIcon
                       icon={faCircleCheck}
-                      className="text-colorJ14 text-center w-4 h-4"
+                      className="text-colorE4 text-center w-4 h-4"
                     />
                   </button>
                 </foreignObject>
@@ -112,7 +112,7 @@ function TimeTrackerPage() {
                 textAnchor="middle"
                 dominantBaseline="middle"
                 fontSize="20"
-                className="text-3x tracking-widest font-semibold text-colorJ1"
+                className="text-3x tracking-widest font-semibold text-colorF2"
               >
                 {`${Math.floor(totalSeconds / 60)}:${
                   totalSeconds % 60 < 10 ? "0" : ""
@@ -138,8 +138,8 @@ function TimeTrackerPage() {
           >
             <FontAwesomeIcon
               icon={faCirclePause}
-              className="text-colorJ39 text-center transition-all 
-              duration-500 hover:text-colorJ15 
+              className="text-colorE3 text-center transition-all 
+              duration-500 hover:text-colorE5 
               w-12 h-12"
             />
           </button>
@@ -151,8 +151,8 @@ function TimeTrackerPage() {
           >
             <FontAwesomeIcon
               icon={faCirclePlay}
-              className="text-colorJ35 text-center transition-all 
-              duration-500  hover:text-colorJ15 
+              className="text-colorF1 text-center transition-all 
+              duration-500  hover:text-colorE5 
               w-12 h-12"
             />
           </button>
@@ -164,24 +164,24 @@ function TimeTrackerPage() {
           >
             <FontAwesomeIcon
               icon={faPowerOff}
-              className="text-colorJ29 hover:text-colorJ15 text-center transition-all 
-              duration-500  w-12 h-12"
+              className="text-colorE2 hover:text-colorE5 text-center transition-all 
+              duration-500  w-12 h-11"
             />
           </button>
         </div>
       </div>
 
       <div className="col-span-5 grid grid-rows-2 gap-8">
-        <div className="row-span-1 bg-colorJ12 shadow-xl rounded-lg flex justify-center items-center">
+        <div className="row-span-1 bg-colorE1 shadow-xl rounded-lg flex justify-center items-center">
           <img src={pomodoroImage} />
         </div>
 
-        <div className="row-span-1 bg-colorJ12 shadow-xl p-5 rounded-lg flex justify-center items-center">
+        <div className="row-span-1 bg-colorE1 shadow-xl p-5 rounded-lg flex justify-center items-center">
           <div>
-            <h2 className="text-lg font-semibold text-colorJ1">
+            <h2 className="text-lg font-semibold text-colorF2">
               {articles[currentArticleIndex]?.title}
             </h2>
-            <p className="text-sm font-normal mt-2 text-colorJ10 leading-loose">
+            <p className="text-sm font-normal mt-2 text-colorF3 leading-loose">
               {articles[currentArticleIndex]?.content}
             </p>
           </div>

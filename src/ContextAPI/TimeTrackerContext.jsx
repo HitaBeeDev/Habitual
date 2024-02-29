@@ -1,4 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWrench, faEject } from "@fortawesome/free-solid-svg-icons";
+import articles from "../Components/TimeTracker/articles";
 
 const TimeTrackerContext = createContext();
 
@@ -23,6 +26,16 @@ export const TimeTrackerProvider = ({ children }) => {
   const [projects, setProjects] = useState([]);
   const [projectTimes, setProjectTimes] = useState({});
   const [projectRemainingTimes, setProjectRemainingTimes] = useState({});
+
+  const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentArticleIndex((prevIndex) => (prevIndex + 1) % articles.length);
+    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     if (isTimerActive) {
@@ -120,7 +133,17 @@ export const TimeTrackerProvider = ({ children }) => {
 
   const toggleEdit = () => setIsEditing((prev) => !prev);
 
-  const editButtonText = isEditing ? "Close" : "Edit";
+  const editButtonText = isEditing ? (
+    <FontAwesomeIcon
+      icon={faEject}
+      className="text-colorJ21 border-4 text-center p-2 transition-all duration-500 hover:border-colorJ15 hover:text-colorJ15 rounded-full border-colorJ21 w-6 h-6"
+    />
+  ) : (
+    <FontAwesomeIcon
+      icon={faWrench}
+      className="text-colorJ21 border-2 text-center p-2 transition-all duration-500 hover:border-colorJ15 hover:text-colorJ15 rounded-full border-colorJ21 w-6 h-6"
+    />
+  );
 
   return (
     <TimeTrackerContext.Provider
@@ -160,6 +183,7 @@ export const TimeTrackerProvider = ({ children }) => {
         radius,
         circumference,
         strokeDashoffset,
+        currentArticleIndex,
       }}
     >
       {children}

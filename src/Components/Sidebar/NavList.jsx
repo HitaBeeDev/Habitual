@@ -20,13 +20,13 @@ const NavList = ({ navItems, isOpen }) => {
               <div>
                 <FontAwesomeIcon
                   icon={item.icon}
-                  className={`w-3 h-3 text-colorA3 group-hover:text-colorA4 duration-500 ${
+                  className={`w-3 h-3 text-colorA1 group-hover:text-colorB3 duration-500 ${
                     isOpen ? "" : "hidden lg:block"
                   }`}
                 />
               </div>
               {isOpen && (
-                <span className="text-colorA3 group-hover:text-colorA4 font-semibold origin-left duration-500">
+                <span className="text-colorA1 group-hover:text-colorB3 font-semibold origin-left duration-500">
                   {item.label}
                 </span>
               )}

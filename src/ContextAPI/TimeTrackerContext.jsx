@@ -90,8 +90,8 @@ export const TimeTrackerProvider = ({ children }) => {
   };
 
   const getTabClassName = (type) => {
-    return `text-md font-semibold w-36 text-center flex flex-col items-center justify-center h-12 rounded-lg text-colorJ1 ${
-      sessionType === type ? "bg-colorE5 text-colorE1" : "bg-colorJ24"
+    return `text-md font-semibold w-36 text-center flex flex-col items-center justify-center h-12 rounded-lg text-colorA1 ${
+      sessionType === type ? "bg-colorE5 text-colorA4" : "bg-colorA5"
     }`;
   };
 

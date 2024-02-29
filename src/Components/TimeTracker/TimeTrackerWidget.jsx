@@ -15,12 +15,12 @@ function TimeTrackerWidget() {
   }, []);
 
   return (
-    <div className="cursor-pointer p-6 bg-colorJ1 rounded-md shadow-xl h-full">
+    <div className="cursor-pointer p-6 bg-colorF4 rounded-md shadow-xl h-full">
       <div>
-        <h2 className="text-lg font-semibold text-colorJ17">
+        <h2 className="text-lg font-semibold text-colorH3">
           {homePageArticles[currentArticleIndex]?.title}
         </h2>
-        <p className="text-sm font-normal mt-2 text-colorJ26 leading-loose">
+        <p className="text-sm font-normal mt-2 text-colorI1 leading-loose">
           {homePageArticles[currentArticleIndex]?.content}
         </p>
       </div>

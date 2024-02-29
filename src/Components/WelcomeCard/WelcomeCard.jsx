@@ -76,16 +76,16 @@ function WelcomeCard() {
     <div className="lg:grid lg:grid-cols-6 gap-5 h-full flex flex-col">
       <div
         className="lg:col-span-4 flex flex-col gap-8 lg:gap-1 p-2 
-      lg:flex-row items-center bg-colorJ26 lg:shadow-xl lg:p-3 rounded-lg"
+      lg:flex-row items-center bg-colorB4 lg:shadow-xl lg:p-3 rounded-lg"
       >
         <div className="pl-5 flex flex-col">
           <p
             className="text-left tracking-widest font-mono 
-          text-colorJ1 text-[2.2rem] font-black"
+          text-colorF4 text-[2.2rem] font-black"
           >
             {timeGreeting}
           </p>
-          <p className="text-left mt-5 text-md font-normal text-colorJ2">
+          <p className="text-left mt-5 text-md font-normal text-colorF5">
             {motivationalMessage}
           </p>
         </div>
@@ -104,29 +104,29 @@ function WelcomeCard() {
           className="bg-colorC2 h-20 lg:h-full rounded-lg 
         lg:shadow-xl flex flex-col items-start justify-center gap-2 p-3"
         >
-          <p className="text-colorJ5 text-xs font-medium">
+          <p className="text-colorG2 text-xs font-medium">
             Oh hey, it's{" "}
-            <span className="text-colorJ13 tracking-wider text-xs font-bold">
+            <span className="text-colorH1 tracking-wider text-xs font-bold">
               {dayOfWeek}
             </span>{" "}
             already!
           </p>
 
-          <p className="text-colorJ6 text-md font-bold">{currentDate}</p>
+          <p className="text-colorG3 text-md font-bold">{currentDate}</p>
         </div>
 
         <div className="bg-colorD2 h-20 lg:h-full flex items-center justify-center text-center rounded-lg lg:shadow-xl text-colorA5 col-span-1">
           <div className="flex items-baseline font-semibold mt-2">
-            <span className="text-colorJ7 text-[35px]">{formattedTime}</span>
-            <span className="text-colorJ7 text-sm self-start -mt-3 ml-1">
+            <span className="text-colorG4 text-[35px]">{formattedTime}</span>
+            <span className="text-colorG4 text-sm self-start -mt-3 ml-1">
               {period}
             </span>
           </div>
         </div>
       </div>
 
-      <div className="bg-colorJ28 h-28 lg:h-full flex items-center justify-center col-span-1 p-5 rounded-lg lg:shadow-xl">
-        <p className="text-colorJ8 text-md font-medium tracking-wider leading-loose">
+      <div className="bg-colorC4 h-28 lg:h-full flex items-center justify-center col-span-1 p-5 rounded-lg lg:shadow-xl">
+        <p className="text-colorG5 text-md font-medium tracking-wider leading-loose">
           "{quotes[quoteIndex]}"
         </p>
       </div>

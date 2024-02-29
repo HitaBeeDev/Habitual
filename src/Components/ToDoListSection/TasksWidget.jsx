@@ -9,8 +9,8 @@ function TasksWidget() {
   };
 
   return (
-    <div className="cursor-pointer p-5 bg-colorJ24 rounded-md shadow-xl h-full">
-      <p className="text-lg font-semibold text-colorJ11">📝 Upcoming Plans: </p>
+    <div className="cursor-pointer p-5 bg-colorH4 rounded-md shadow-xl h-full">
+      <p className="text-lg font-semibold text-colorB4">📝 Upcoming Plans: </p>
 
       <div className="mt-3">
         {Object.entries(groupedTasks)
@@ -31,7 +31,7 @@ function TasksWidget() {
                   .slice(0, 2)
                   .map((task, index) => (
                     <li key={index}>
-                      <p className="text-xs text-colorJ11 font-semibold">
+                      <p className="text-xs text-colorB4 font-semibold">
                         {date}
                       </p>
 
@@ -47,19 +47,19 @@ function TasksWidget() {
                         }`}
                       >
                         <div className="flex flex-col gap-1">
-                          <p className="text-sm font-semibold text-colorJ26">
+                          <p className="text-sm font-semibold text-colorI1">
                             {task.name}
                           </p>
-                          <p className="text-xs font-normal text-colorJ26">
+                          <p className="text-xs font-normal text-colorI1">
                             {task.description}
                           </p>
                         </div>
 
-                        <p className="text-xs font-medium text-colorJ26">
+                        <p className="text-xs font-medium text-colorI1">
                           {task.startTime} - {task.endTime}
                         </p>
 
-                        <p className="text-sm font-semibold text-colorJ26">
+                        <p className="text-sm font-semibold text-colorI1">
                           {task.priority}
                         </p>
                       </div>

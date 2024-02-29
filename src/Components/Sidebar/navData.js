@@ -9,5 +9,5 @@ export const mainNavItems = [
   { icon: faHouse, label: "Dashboard" },
   { icon: faTrophy, label: "Habit Tracker" },
   { icon: faListCheck, label: "ToDo List" },
-  { icon: faHourglassHalf, label: "Time Tracker" },
+  { icon: faHourglassHalf, label: "Pomodoro Timer" },
 ];

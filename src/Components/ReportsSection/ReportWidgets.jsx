@@ -1,21 +1,16 @@
-import useHabits from "../";
+import { useHabits } from "../../ContextAPI/HabitContext";
 
 function ReportWidgets() {
-  const {
-    totalHabits,
-    completedHabits,
-    bestDayMessage,
-    bestHabitMessage,
-    averagePercentageForWeek,
-  } = useHabits();
+  const { averagePercentageForWeek, bestDayMessage, bestHabitMessage } =
+    useHabits();
 
   return (
-    <div className="grid grid-rows-3 xl:h-full h-64 gap-3">
-      <div className="rounded-md p-2 bg-colorA1">
+    <div className="grid grid-rows-3 mb-5 xl:h-full h-64 gap-5">
+      <div className="rounded-md p-3 flex justify-center items-center bg-colorI2">
         <>
           {averagePercentageForWeek >= 75 &&
             averagePercentageForWeek <= 100 && (
-              <p>
+              <p className="text-sm font-medium text-center">
                 Fantastic job! Your result of the week is:{" "}
                 <span className="font-bold">
                   {averagePercentageForWeek.toFixed(2)}%
@@ -24,7 +19,7 @@ function ReportWidgets() {
               </p>
             )}
           {averagePercentageForWeek >= 50 && averagePercentageForWeek < 75 && (
-            <p>
+            <p className="text-sm font-medium text-center">
               Great work! Your result of the week is:{" "}
               <span className="font-bold">
                 {averagePercentageForWeek.toFixed(2)}%
@@ -33,7 +28,7 @@ function ReportWidgets() {
             </p>
           )}
           {averagePercentageForWeek >= 25 && averagePercentageForWeek < 50 && (
-            <p>
+            <p className="text-sm font-medium text-center">
               Good effort! Your result of the week is:{" "}
               <span className="font-bold">
                 {averagePercentageForWeek.toFixed(2)}%
@@ -42,7 +37,7 @@ function ReportWidgets() {
             </p>
           )}
           {averagePercentageForWeek >= 0 && averagePercentageForWeek < 25 && (
-            <p>
+            <p className="text-sm font-medium text-center text-colorI1">
               No worries! Your result of the week is:{" "}
               <span className="font-bold">
                 {averagePercentageForWeek.toFixed(2)}%
@@ -54,12 +49,17 @@ function ReportWidgets() {
         </>
       </div>
 
-      <div className="bg-colorA2 rounded-md p-2">
-        5 / 7 habits of today is done! Bravo!
+      <div className="bg-colorH5 rounded-md p-3 flex justify-center items-center">
+        <p className="text-sm text-colorH3 font-medium text-center">
+          {" "}
+          {bestDayMessage}
+        </p>
       </div>
 
-      <div className="bg-colorA3 rounded-md p-2">
-        72 hours of productivity this week!
+      <div className="bg-colorH2 rounded-md p-3 flex justify-center items-center">
+        <p className="text-sm text-colorB4 font-medium text-center">
+          {bestHabitMessage}
+        </p>
       </div>
     </div>
   );

@@ -27,7 +27,7 @@ function Container() {
           <Route path="/dashboard" element={<HomePage isOpen={isOpen} />} />
           <Route path="/habit-tracker" element={<HabitTrackerPage />} />
           <Route path="/ToDo-List" element={<ToDoListPage />} />
-          <Route path="/Time-Tracker" element={<TimeTrackerPage />} />
+          <Route path="/Pomodoro-Timer" element={<TimeTrackerPage />} />
         </Routes>
       </div>
     </div>

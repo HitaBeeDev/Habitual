@@ -34,6 +34,14 @@ export default {
         colorD4: "#DCD6F7",
         colorD5: "#95E1D3",
 
+        //////////
+
+        colorE1: "#",
+        colorE2: "#",
+        colorE3: "",
+        colorE4: "#",
+        colorE5: "#",
+
         //--------------------------------------------------
 
         colorJ1: "#424874",
@@ -70,6 +78,17 @@ export default {
         colorJ28: "#0F4C75",
         colorJ29: "#3282B8",
         colorJ30: "#BBE1FA",
+        colorJ31: "#FFB6B9",
+
+        colorJ32: "#B7C4CF",
+        colorJ33: "#EEE3CB",
+        colorJ34: "#D7C0AE",
+        colorJ35: "#967E76",
+        colorJ36: "#FFB6B9",
+
+        colorJ37: "#FAE3D9",
+        colorJ38: "#BBDED6",
+        colorJ39: "#61C0BF",
       },
     },
   },

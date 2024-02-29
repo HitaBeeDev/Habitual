@@ -1,172 +1,165 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import usePersistentState from "../usePersistentState"; // Corrected import
 
 const TimeTrackerContext = createContext();
 
 export const useTimeTracker = () => useContext(TimeTrackerContext);
 
 export const TimeTrackerProvider = ({ children }) => {
-  const [timeLeft, setTimeLeft] = usePersistentState("timeLeft", 25 * 60);
-  const [isActive, setIsActive] = useState(false);
-  const [inputMinutes, setInputMinutes] = usePersistentState(
-    "inputMinutes",
-    25
-  );
-  const [initialTime, setInitialTime] = usePersistentState(
-    "initialTime",
-    25 * 60
-  );
-  const [projectName, setProjectName] = usePersistentState("projectName", "");
-  const [projects, setProjects] = usePersistentState("projects", []);
-  const [timerSet, setTimerSet] = usePersistentState("timerSet", false);
-
-  const [editIndex, setEditIndex] = useState(null);
-  const [editedProjectName, setEditedProjectName] = useState("");
-
-  const handleEdit = (index, projectName) => {
-    setEditIndex(index);
-    setEditedProjectName(projectName);
+  const initialTotalSeconds = 25 * 60;
+  const [totalSeconds, setTotalSeconds] = useState(initialTotalSeconds);
+  const [maxSeconds, setMaxSeconds] = useState(initialTotalSeconds);
+  const [timerId, setTimerId] = useState(null);
+  const [isTimerActive, setIsTimerActive] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTime, setEditTime] = useState("");
+  const [sessionType, setSessionType] = useState("Pomodoro");
+  const sessionDurations = {
+    Pomodoro: 25 * 60,
+    ShortBreak: 15 * 60,
+    LongBreak: 30 * 60,
   };
 
-  const handleSaveEdit = (index) => {
-    setProjects((prevProjects) => {
-      const updatedProjects = [...prevProjects];
-      updatedProjects[index].name = editedProjectName;
-      return updatedProjects;
-    });
-    setEditIndex(null);
-  };
+  const [projectName, setProjectName] = useState("");
+  const [projects, setProjects] = useState([]);
+  const [projectTimes, setProjectTimes] = useState({});
+  const [projectRemainingTimes, setProjectRemainingTimes] = useState({});
 
-  const handleCancelEdit = () => {
-    setEditIndex(null);
-    setEditedProjectName("");
-  };
-
-  const handleDelete = (index) => {
-    setProjects((prevProjects) => prevProjects.filter((_, i) => i !== index));
-  };
-
-  const handleStartPause = () => {
-    setIsActive(!isActive);
-  };
-
-  const handleProjectNameChange = (event) => {
-    setProjectName(event.target.value);
-  };
+  useEffect(() => {
+    if (isTimerActive) {
+      const id = setInterval(() => {
+        setTotalSeconds((prev) => {
+          if (prev <= 0) {
+            clearInterval(id);
+            setIsTimerActive(false);
+            return 0;
+          }
+          return prev - 1;
+        });
+        setProjectRemainingTimes((prev) => {
+          const updatedRemainingTimes = { ...prev };
+          for (const projectId in prev) {
+            updatedRemainingTimes[projectId] = prev[projectId] - 1;
+          }
+          return updatedRemainingTimes;
+        });
+      }, 1000);
+      setTimerId(id);
+      return () => clearInterval(id);
+    }
+  }, [isTimerActive]);
 
   const handleAddProject = () => {
-    if (projectName.trim() !== "") {
-      setProjects([
-        ...projects,
-        { name: projectName, timeLeft: inputMinutes * 60, isActive: false },
-      ]);
+    if (projectName.trim()) {
+      const projectId = Date.now().toString();
+      const newProject = { id: projectId, name: projectName };
+      setProjects([...projects, newProject]);
+      const initialTimeForSession = sessionDurations[sessionType];
+      setProjectTimes((prev) => ({
+        ...prev,
+        [projectId]: initialTimeForSession,
+      }));
+      setProjectRemainingTimes((prev) => ({
+        ...prev,
+        [projectId]: initialTimeForSession,
+      }));
       setProjectName("");
-      setTimerSet(false); // Reset timer set state
-    } else {
-      alert("Please enter a project name."); // Display an error message
     }
   };
 
-  const handleTimeChange = (event) => {
-    setInputMinutes(event.target.value);
-  };
-
-  const formatTime = (time, isTotal = false) => {
-    if (isTotal) {
-      const hours = Math.floor(time / 3600);
-      const minutes = Math.floor((time % 3600) / 60);
-      if (hours > 0) {
-        return `${hours} hour${hours !== 1 ? "s" : ""}, ${minutes} minute${
-          minutes !== 1 ? "s" : ""
-        }`;
-      } else {
-        return `${minutes} minute${minutes !== 1 ? "s" : ""}`;
-      }
-    } else {
-      const minutes = Math.floor(time / 60);
-      const seconds = time % 60;
-      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  const handleSessionChange = (type) => {
+    setSessionType(type);
+    const newTotalSeconds = sessionDurations[type];
+    setTotalSeconds(newTotalSeconds);
+    setMaxSeconds(newTotalSeconds);
+    if (isTimerActive) {
+      handlePause();
     }
   };
 
-  useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setTimeLeft((time) => (time > 0 ? time - 1 : 0));
-      }, 1000);
-    } else if (!isActive && timeLeft !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProjects(
-        projects.map((project) => {
-          if (project.isActive && project.timeLeft > 0) {
-            return { ...project, timeLeft: project.timeLeft - 1 };
-          }
-          return project;
-        })
-      );
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [projects]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setTimeLeft(inputMinutes * 60);
-    setInitialTime(inputMinutes * 60);
-    setTimerSet(true); // Set timer set state
+  const getTabClassName = (type) => {
+    return `text-md font-semibold w-32 text-center flex flex-col items-center justify-center h-10 rounded-lg text-colorJ10 ${
+      sessionType === type ? "bg-colorA2" : "bg-colorA3"
+    }`;
   };
 
-  // Calculate total time studied
-  const totalTimeStudied = projects.reduce((total, project) => {
-    return total + project.timeLeft;
-  }, 0);
+  const handleStart = () => setIsTimerActive(true);
+
+  const handlePause = () => {
+    clearInterval(timerId);
+    setIsTimerActive(false);
+  };
 
   const handleReset = () => {
-    setTimeLeft(initialTime);
-    setIsActive(false);
-    setProjects([]);
+    clearInterval(timerId);
+    setTimerId(null);
+    setIsTimerActive(false);
+    setTotalSeconds(maxSeconds); // Reset main timer
   };
+
+  const handleUpdateTime = () => {
+    const newTotalSeconds = parseInt(editTime, 10) * 60;
+    if (!isNaN(newTotalSeconds) && newTotalSeconds > 0) {
+      setTotalSeconds(newTotalSeconds);
+      setMaxSeconds(newTotalSeconds);
+      // Update remaining time for all projects if total time is updated
+      setProjectRemainingTimes((prev) => {
+        const updatedRemainingTimes = {};
+        for (const projectName in prev) {
+          updatedRemainingTimes[projectName] = newTotalSeconds;
+        }
+        return updatedRemainingTimes;
+      });
+    }
+    setIsEditing(false);
+    setEditTime("");
+  };
+
+  const radius = 80;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = (totalSeconds / maxSeconds) * circumference;
+
+  const toggleEdit = () => setIsEditing((prev) => !prev);
+
+  const editButtonText = isEditing ? "Close" : "Edit";
 
   return (
     <TimeTrackerContext.Provider
       value={{
-        timeLeft,
-        setTimeLeft,
-        isActive,
-        setIsActive,
-        inputMinutes,
-        setInputMinutes,
-        initialTime,
-        setInitialTime,
+        totalSeconds,
+        setTotalSeconds,
+        maxSeconds,
+        setMaxSeconds,
+        timerId,
+        setTimerId,
+        isTimerActive,
+        setIsTimerActive,
+        isEditing,
+        setIsEditing,
+        editTime,
+        setEditTime,
+        sessionType,
+        setSessionType,
         projectName,
         setProjectName,
         projects,
         setProjects,
-        timerSet,
-        setTimerSet,
-        handleStartPause,
-        handleProjectNameChange,
+        projectTimes,
+        setProjectTimes,
+        projectRemainingTimes,
+        setProjectRemainingTimes,
         handleAddProject,
-        handleTimeChange,
-        formatTime,
-        totalTimeStudied,
-        handleSubmit,
-        editIndex,
-        setEditIndex,
-        editedProjectName,
-        setEditedProjectName,
-        handleEdit,
+        handleSessionChange,
+        handleStart,
+        handlePause,
         handleReset,
-        handleDelete,
-        handleCancelEdit,
-        handleSaveEdit,
+        handleUpdateTime,
+        toggleEdit,
+        editButtonText,
+        getTabClassName,
+        sessionDurations,
+        radius,
+        circumference,
+        strokeDashoffset,
       }}
     >
       {children}

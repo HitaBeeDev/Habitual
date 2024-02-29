@@ -1,143 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { CountdownCircleTimer } from "react-countdown-circle-timer";
-import usePersistentState from "../../usePersistentState";
+import pomodoroImage from "../../assets/time.gif";
+import { useTimeTracker } from "../../ContextAPI/TimeTrackerContext";
 
 function TimeTrackerPage() {
-  const initialTotalSeconds = 25 * 60; // Initial time for the Pomodoro timer
-  const [totalSeconds, setTotalSeconds] = useState(initialTotalSeconds);
-  const [maxSeconds, setMaxSeconds] = useState(initialTotalSeconds);
-  const [timerId, setTimerId] = useState(null);
-  const [isTimerActive, setIsTimerActive] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editTime, setEditTime] = useState("");
-  const [sessionType, setSessionType] = useState("Pomodoro");
-  const sessionDurations = {
-    Pomodoro: 25 * 60,
-    ShortBreak: 15 * 60,
-    LongBreak: 30 * 60,
-  };
-
-  const [projectName, setProjectName] = useState("");
-  const [projects, setProjects] = useState([]);
-  const [projectTimes, setProjectTimes] = useState({});
-  const [projectRemainingTimes, setProjectRemainingTimes] = useState({}); // New state to track remaining time for each project
-
-  useEffect(() => {
-    if (isTimerActive) {
-      const id = setInterval(() => {
-        setTotalSeconds((prev) => {
-          if (prev <= 0) {
-            clearInterval(id);
-            setIsTimerActive(false);
-            return 0;
-          }
-          return prev - 1;
-        });
-        // Update project remaining times
-        setProjectRemainingTimes((prev) => {
-          const updatedRemainingTimes = {};
-          for (const projectName in prev) {
-            updatedRemainingTimes[projectName] = prev[projectName] - 1;
-          }
-          return updatedRemainingTimes;
-        });
-      }, 1000);
-      setTimerId(id);
-      return () => clearInterval(id);
-    }
-  }, [isTimerActive]);
-
-  const handleAddProject = () => {
-    if (projectName.trim()) {
-      const newProject = { name: projectName };
-      setProjects([...projects, newProject]);
-      setProjectTimes((prev) => ({
-        ...prev,
-        [projectName]: totalSeconds,
-      }));
-      // Set initial remaining time for the project same as total time
-      setProjectRemainingTimes((prev) => ({
-        ...prev,
-        [projectName]: totalSeconds,
-      }));
-      setProjectName("");
-    }
-  };
-
-  const handleSessionChange = (type) => {
-    setSessionType(type);
-    const newTotalSeconds = sessionDurations[type];
-    setTotalSeconds(newTotalSeconds);
-    setMaxSeconds(newTotalSeconds);
-    if (isTimerActive) {
-      handlePause();
-    }
-  };
-
-  const getTabClassName = (type) => {
-    return `text-md font-semibold w-32 text-center flex flex-col items-center justify-center h-10 rounded-lg text-colorJ10 ${
-      sessionType === type ? "bg-colorA2" : "bg-colorA3"
-    }`;
-  };
-
-  const handleStart = () => setIsTimerActive(true);
-
-  const handlePause = () => {
-    clearInterval(timerId);
-    setIsTimerActive(false);
-  };
-
-  const handleReset = () => {
-    clearInterval(timerId);
-    setTimerId(null);
-    setIsTimerActive(false);
-    setTotalSeconds(maxSeconds); // Reset main timer
-  };
-
-  const handleEdit = () => setIsEditing(true);
-
-  const handleUpdateTime = () => {
-    const newTotalSeconds = parseInt(editTime, 10) * 60;
-    if (!isNaN(newTotalSeconds) && newTotalSeconds > 0) {
-      setTotalSeconds(newTotalSeconds);
-      setMaxSeconds(newTotalSeconds);
-      // Update remaining time for all projects if total time is updated
-      setProjectRemainingTimes((prev) => {
-        const updatedRemainingTimes = {};
-        for (const projectName in prev) {
-          updatedRemainingTimes[projectName] = newTotalSeconds;
-        }
-        return updatedRemainingTimes;
-      });
-    }
-    setIsEditing(false);
-    setEditTime("");
-  };
-
-  const radius = 80;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = (totalSeconds / maxSeconds) * circumference;
-
-  const toggleEdit = () => setIsEditing((prev) => !prev);
-
-  const editButtonText = isEditing ? "Close" : "Edit";
-
-  const calculateTotalTimeStudied = () => {
-    let totalTimeInSeconds = 0;
-    for (const projectName in projectTimes) {
-      totalTimeInSeconds +=
-        projectTimes[projectName] - projectRemainingTimes[projectName];
-    }
-    const hours = Math.floor(totalTimeInSeconds / 3600);
-    const minutes = Math.floor((totalTimeInSeconds % 3600) / 60);
-    const seconds = totalTimeInSeconds % 60;
-    return `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
-  };
+  const {
+    totalSeconds,
+    isEditing,
+    editTime,
+    setEditTime,
+    handleSessionChange,
+    handleStart,
+    handlePause,
+    handleReset,
+    handleUpdateTime,
+    toggleEdit,
+    editButtonText,
+    getTabClassName,
+    radius,
+    circumference,
+    strokeDashoffset,
+  } = useTimeTracker();
 
   return (
-    <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-5 lg:grid lg:grid-cols-12">
-      <div className="col-span-6 bg-colorJ1 shadow-xl rounded-lg flex flex-col gap-5 justify-between p-10 items-center">
-        <div className="flex flex-row gap-5 justify-center items-center shadow-xl rounded-lg">
+    <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-5 lg:grid lg:grid-cols-12 bg-colorJ24 shadow-xl rounded-lg">
+      <div className="col-span-6 flex flex-col gap-5 justify-between p-10 items-center">
+        <div className="flex flex-row gap-5 justify-center items-center">
           <button
             onClick={() => handleSessionChange("Pomodoro")}
             className={getTabClassName("Pomodoro")}
@@ -224,19 +110,6 @@ function TimeTrackerPage() {
         </div>
 
         <div className="flex flex-row gap-5 justify-center items-center">
-          <div>
-            <input
-              type="text"
-              value={projectName}
-              onChange={(e) => setProjectName(e.target.value)}
-              placeholder="Project Name"
-              className="text-input"
-            />
-            <button onClick={handleAddProject} className="add-btn">
-              Add
-            </button>
-          </div>
-
           <button
             onClick={toggleEdit}
             className="text-md font-semibold text-colorJ10 bg-colorJ15 p-1 rounded"
@@ -274,32 +147,10 @@ function TimeTrackerPage() {
         </div>
       </div>
 
-      <div className="col-span-6 gap-5 overflow-auto bg-colorJ3 shadow-xl rounded-lg">
-        <ul>
-          {projects.map((project, index) => (
-            <li key={index}>
-              {project.name} - {/* Show the time passed for each project */}
-              {`${Math.floor(
-                (projectTimes[project.name] -
-                  projectRemainingTimes[project.name]) /
-                  60
-              )}:${
-                (projectTimes[project.name] -
-                  projectRemainingTimes[project.name]) %
-                  60 <
-                10
-                  ? "0"
-                  : ""
-              }${
-                (projectTimes[project.name] -
-                  projectRemainingTimes[project.name]) %
-                60
-              }`}
-            </li>
-          ))}
-        </ul>
-
-        <div>You study the total of: {calculateTotalTimeStudied()}</div>
+      <div className="col-span-6 gap-5 overflow-auto">
+        <div>
+          <img src={pomodoroImage} />
+        </div>
       </div>
     </div>
   );

@@ -95,7 +95,15 @@ export default {
         colorJ36: "#3FC1C9",
 
         colorJ37: "#F5F5F5",
-        colorJ38: "",
+        colorJ39: "#6096B4",
+        colorJ40: "#93BFCF",
+        colorJ41: "#BDCDD6",
+        colorJ42: "#EEE9DA",
+
+        colorJ43: "#DEFCF9",
+        colorJ44: "#CADEFC",
+        colorJ45: "#C3BEF0",
+        colorJ46: "#CCA8E9",
       },
     },
   },

@@ -77,8 +77,8 @@ export const TimeTrackerProvider = ({ children }) => {
   };
 
   const getTabClassName = (type) => {
-    return `text-md font-semibold w-32 text-center flex flex-col items-center justify-center h-10 rounded-lg text-colorJ10 ${
-      sessionType === type ? "bg-colorA2" : "bg-colorA3"
+    return `text-md font-semibold w-36 text-center flex flex-col items-center justify-center h-12 rounded-lg text-colorJ1 ${
+      sessionType === type ? "bg-colorJ15 text-colorJ5" : "bg-colorJ24"
     }`;
   };
 

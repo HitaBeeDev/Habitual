@@ -1,23 +1,15 @@
-import { useTimeTracker } from "../../ContextAPI/TimeTrackerContext";
-
 function TimeTrackerWidget() {
-  const { projects, formatTime, totalTimeStudied } = useTimeTracker();
-
   return (
     <div className="cursor-pointer p-3 bg-colorA4 rounded-md shadow-xl h-full">
       <div>
         <p>List of projects of the day:</p>
         <ul>
-          {projects.map((project, index) => (
-            <li className="flex flex-row justify-between" key={index}>
-              <p>{project.name}</p>
-              <p>{formatTime(project.timeLeft)}</p>
-            </li>
-          ))}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores
+          laboriosam neque amet molestiae. Aliquam perferendis a eos corporis.
+          Aut laudantium officia ipsum necessitatibus. Error tempore labore
+          fugiat, saepe mollitia quas?
         </ul>
       </div>
-
-      <p>You Studied Total: {formatTime(totalTimeStudied, true)}</p>
     </div>
   );
 }

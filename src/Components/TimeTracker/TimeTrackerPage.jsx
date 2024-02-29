@@ -21,8 +21,8 @@ function TimeTrackerPage() {
   } = useTimeTracker();
 
   return (
-    <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-5 lg:grid lg:grid-cols-12 bg-colorJ24 shadow-xl rounded-lg">
-      <div className="col-span-6 flex flex-col gap-5 justify-between p-10 items-center">
+    <div className="lg:mt-5 lg:mb-5 mt-20 w-full flex flex-col gap-5 lg:grid lg:grid-cols-12">
+      <div className="col-span-7 flex flex-col gap-5 shadow-xl rounded-lg justify-between p-5 items-center bg-colorJ12">
         <div className="flex flex-row gap-5 justify-center items-center">
           <button
             onClick={() => handleSessionChange("Pomodoro")}
@@ -47,7 +47,7 @@ function TimeTrackerPage() {
         </div>
 
         <div className="relative flex flex-row justify-center items-center">
-          <svg width="200" height="200" viewBox="0 0 200 200">
+          <svg width="400" height="400" viewBox="0 0 200 200">
             <circle
               className="timer-circle-bg"
               stroke="#e6e6e6"
@@ -147,7 +147,7 @@ function TimeTrackerPage() {
         </div>
       </div>
 
-      <div className="col-span-6 gap-5 overflow-auto">
+      <div className="col-span-5 gap-5 overflow-auto">
         <div>
           <img src={pomodoroImage} />
         </div>

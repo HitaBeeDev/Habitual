@@ -34,17 +34,10 @@ function ToDoList() {
   }
 
   return (
-    <div
-      className="lg:block mt-5 overflow-auto scroll-smooth bg-colorD4 rounded-lg shadow-xl p-1 pl-10 pr-10 pb-5"
-      style={{
-        maxHeight: "480px",
-        overflowY: "scroll",
-        scrollbarWidth: "thin",
-      }}
-    >
+    <div className="lg:block mt-5 bg-colorD4 rounded-lg shadow-xl p-1 pl-3 pr-3 lg:pl-10 lg:pr-10 pb-5">
       {sortedTasks.map(([date, tasks]) => (
         <div key={date}>
-          <p className=" text-sm font-semibold mb-2 mt-5">{date}</p>
+          <p className="text-sm font-semibold mb-2 mt-5">{date}</p>
           <ul>
             {tasks.map((task, index) => {
               const taskIdentifier = generateTaskIdentifier(task, index);
@@ -57,10 +50,21 @@ function ToDoList() {
                       : "none",
                   }}
                 >
-                  <div className="lg:grid bg-colorB1 h-24 grid-cols-12 pl-8 gap-5 items-center rounded-lg shadow-xl">
-                    <div className="col-span-5 flex flex-row gap-5 items-center">
+                  <div
+                    className={`lg:grid bg-colorB1 flex flex-row gap-1 p-3 h-24 
+                  lg:grid-cols-12 lg:pl-8 lg:gap-5 items-center rounded-lg shadow-xl ${
+                    task.priority === "High"
+                      ? " border-colorC2 border-l-8"
+                      : task.priority === "Medium"
+                      ? " border-colorA5 border-l-8"
+                      : task.priority === "Low"
+                      ? " border-colorC3 border-l-8 "
+                      : ""
+                  }`}
+                  >
+                    <div className="col-span-5 flex flex-row lg:gap-5 gap-2 items-center">
                       <input
-                        className={`cursor-pointer w-6 h-6 border border-colorD2 rounded-full ${
+                        className={`cursor-pointer w-4 h-4 lg:w-6 lg:h-6 border border-colorD2 rounded-full ${
                           checkedTasks.includes(taskIdentifier)
                             ? "bg-colorD2"
                             : "bg-colorD3"
@@ -75,23 +79,23 @@ function ToDoList() {
                           <input
                             type="text"
                             value={newTask.name}
-                            className="text-left" // Ensure the input text is aligned left
+                            className="text-left"
                             onChange={(e) =>
                               updateNewTask("name", e.target.value)
                             }
                           />
                         ) : (
-                          <p className="tracking-wider text-left text-md font-bold text-colorC4">
+                          <p className="tracking-wider text-left text-xs lg:text-md font-bold text-colorC4">
                             {task.name}
                           </p>
                         )}
 
-                        <p className="text-sm font-normal text-colorC4 text-left">
+                        <p className="lg:text-sm text-xs font-normal text-colorC4 text-left">
                           {isEditing && editTaskIndex === index ? (
                             <input
                               type="text"
                               value={newTask.description}
-                              className="text-left" // Ensure the input text is aligned left
+                              className="text-left"
                               onChange={(e) =>
                                 updateNewTask("description", e.target.value)
                               }
@@ -103,26 +107,20 @@ function ToDoList() {
                       </div>
                     </div>
 
-                    <div className="col-span-2 flex items-center justify-center">
+                    <div className="hidden col-span-2 lg:flex items-center justify-center">
                       <p className="text-center tracking-widest text-md font-medium text-colorC4">
                         {task.date}
                       </p>
                     </div>
 
-                    <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-md tracking-widest	 font-medium text-colorC4">
-                        {task.startTime}
-                      </p>
-                    </div>
-
-                    <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-md tracking-widest	 font-medium text-colorC4">
-                        {task.endTime}
+                    <div className="col-span-2 flex items-center justify-center">
+                      <p className="text-center lg:text-md text-xs tracking-widest	 font-medium text-colorC4">
+                        {task.startTime} - {task.endTime}
                       </p>
                     </div>
 
                     <div
-                      className={`col-span-1 flex items-center content-center justify-center rounded-lg w-24 h-9 ${
+                      className={`hidden col-span-1 lg:flex items-center content-center justify-center rounded-lg w-24 h-9 ${
                         task.priority === "High"
                           ? "bg-colorC2 border-colorC2 text-colorA2"
                           : task.priority === "Medium"
@@ -137,7 +135,7 @@ function ToDoList() {
                       </p>
                     </div>
 
-                    <div className="col-span-2 flex justify-center gap-4 items-center">
+                    <div className="hidden col-span-2 lg:flex justify-center gap-4 items-center">
                       <button onClick={() => handleTaskEditClick(task.id)}>
                         <FontAwesomeIcon
                           icon={faPenToSquare}

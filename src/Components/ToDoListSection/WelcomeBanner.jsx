@@ -7,12 +7,12 @@ function WelcomeBanner() {
   const { handleAddButtonClick } = useTasks();
 
   return (
-    <div className="flex flex-row p-5 justify-between shadow-xl rounded-lg bg-colorD2">
-      <div className="flex flex-col justify-center gap-3 pr-5 lg:pr-40">
+    <div className="flex lg:flex-row flex-col gap-10 p-5 justify-between shadow-xl rounded-lg bg-colorD2">
+      <div className="flex flex-col justify-center gap-3 lg:pr-40">
         <p className="lg:text-sm text-xs font-medium text-colorD1">
           Hello there!
         </p>
-        <p className="text-2xl font-semibold text-colorC5 pr-52">
+        <p className="text-2xl font-semibold text-colorC5 lg:pr-52">
           Excited to have you! Here's a checklist to get you started smoothly:
         </p>
       </div>
@@ -25,7 +25,7 @@ function WelcomeBanner() {
           />
         </button>
 
-        <img className="w-52" src={todoImage} />
+        <img className="lg:w-52 w-72" src={todoImage} />
       </div>
     </div>
   );

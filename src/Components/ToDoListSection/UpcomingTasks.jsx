@@ -13,7 +13,7 @@ function UpcomingTasks() {
       style={{
         maxHeight: "665px",
       }}
-      className="col-span-3 bg-colorD4 shadow-xl rounded-lg p-5"
+      className="col-span-3 mb-10 bg-colorD4 shadow-xl rounded-lg p-5"
     >
       <p className="text-sm font-semibold mb-3">Upcoming Tasks</p>
 

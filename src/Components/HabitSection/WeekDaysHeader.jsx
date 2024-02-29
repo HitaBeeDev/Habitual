@@ -10,7 +10,7 @@ export default function WeekDaysHeader() {
   const { formatDate, formattedToday, visibleWeekDates } = useHabits();
 
   return (
-    <div className="lg:grid lg:grid-cols-12 mt-6 lg:mt-3 bg-colorA5 h-14 w-full rounded-md items-center shadow-lg flex flex-row gap-3">
+    <div className="lg:grid lg:grid-cols-12 mt-6 lg:mt-3 bg-colorA5 w-full rounded-md items-center shadow-lg flex flex-row gap-3">
       <div className="col-span-2 text-center w-full">
         <p className="text-md font-bold text-colorA1">Your Habits</p>
       </div>
@@ -18,7 +18,7 @@ export default function WeekDaysHeader() {
       {visibleWeekDates.map((date, index) => (
         <div
           key={index}
-          className="lg:col-span-1 flex justify-center items-center lg:border-[1px] h-10 lg:rounded-lg lg:border-colorA2 p-1 w-full text-center"
+          className="lg:col-span-1 flex justify-center items-center h-10 p-1 w-full text-center"
         >
           <p
             className={`text-sm text-colorA1 ${

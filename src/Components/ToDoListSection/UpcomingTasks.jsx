@@ -33,9 +33,9 @@ function UpcomingTasks() {
                         task.priority === "High"
                           ? "border-l-8 border-colorC2"
                           : task.priority === "Medium"
-                          ? " border-colorA5"
+                          ? " border-colorA5 border-l-8"
                           : task.priority === "Low"
-                          ? " border-colorC3"
+                          ? " border-colorC3 border-l-8"
                           : ""
                       }`}
                     >

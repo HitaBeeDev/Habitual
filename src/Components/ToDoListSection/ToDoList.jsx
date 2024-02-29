@@ -57,10 +57,10 @@ function ToDoList() {
                       : "none",
                   }}
                 >
-                  <div className="lg:grid bg-colorB1 h-20 grid-cols-12 pl-8 gap-5 items-center rounded-lg shadow-xl">
-                    <div className="col-span-5 flex flex-row gap-5 justify-start items-center">
+                  <div className="lg:grid bg-colorB1 h-24 grid-cols-12 pl-8 gap-5 items-center rounded-lg shadow-xl">
+                    <div className="col-span-5 flex flex-row gap-5 items-center">
                       <input
-                        className={`cursor-pointer w-5 border border-colorD2 h-5 rounded-full ${
+                        className={`cursor-pointer w-6 h-6 border border-colorD2 rounded-full ${
                           checkedTasks.includes(taskIdentifier)
                             ? "bg-colorD2"
                             : "bg-colorD3"
@@ -75,21 +75,23 @@ function ToDoList() {
                           <input
                             type="text"
                             value={newTask.name}
+                            className="text-left" // Ensure the input text is aligned left
                             onChange={(e) =>
                               updateNewTask("name", e.target.value)
                             }
                           />
                         ) : (
-                          <p className="tracking-wider text-md font-bold text-colorC4">
+                          <p className="tracking-wider text-left text-md font-bold text-colorC4">
                             {task.name}
                           </p>
                         )}
 
-                        <p className="text-center text-sm font-normal text-colorC4">
+                        <p className="text-sm font-normal text-colorC4 text-left">
                           {isEditing && editTaskIndex === index ? (
                             <input
                               type="text"
                               value={newTask.description}
+                              className="text-left" // Ensure the input text is aligned left
                               onChange={(e) =>
                                 updateNewTask("description", e.target.value)
                               }
@@ -102,19 +104,19 @@ function ToDoList() {
                     </div>
 
                     <div className="col-span-2 flex items-center justify-center">
-                      <p className="text-center tracking-widest text-sm font-medium text-colorC4">
+                      <p className="text-center tracking-widest text-md font-medium text-colorC4">
                         {task.date}
                       </p>
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-sm tracking-widest	 font-medium text-colorC4">
+                      <p className="text-center text-md tracking-widest	 font-medium text-colorC4">
                         {task.startTime}
                       </p>
                     </div>
 
                     <div className="col-span-1 flex items-center justify-center">
-                      <p className="text-center text-sm tracking-widest	 font-medium text-colorC4">
+                      <p className="text-center text-md tracking-widest	 font-medium text-colorC4">
                         {task.endTime}
                       </p>
                     </div>

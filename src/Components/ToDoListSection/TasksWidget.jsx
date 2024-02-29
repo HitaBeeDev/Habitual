@@ -4,9 +4,9 @@ function TasksWidget() {
   const { groupedTasks, checkedTasks, generateTaskIdentifier } = useTasks();
 
   return (
-    <div className="cursor-pointer p-3 bg-colorA5 rounded-md shadow-xl h-full">
-      <p>Upcoming Tasks</p>
-      <div className="bg-colorB1">
+    <div className="cursor-pointer p-5 bg-colorJ22 rounded-md shadow-xl h-full">
+      <p className="text-lg font-semibold text-colorJ11">📝 Upcoming Plans: </p>
+      <div>
         {Object.entries(groupedTasks).map(([date, tasks], index) => (
           <div key={date}>
             {index !== 0 && <div style={{ marginBottom: "20px" }}></div>}
@@ -19,7 +19,7 @@ function TasksWidget() {
                 )
                 .map((task, index) => (
                   <li key={index}>
-                    <p>{date}</p>
+                    <p className="">{date}</p>
                     <div className="flex flex-row justify-between">
                       <p>{task.name}</p>
                       <p>{task.description}</p>

@@ -4,12 +4,21 @@ import TimeTrackerWidget from "./TimeTracker/TimeTrackerWidget";
 import WelcomeCard from "./WelcomeCard/WelcomeCard";
 import ArticlesSection from "./ArticlesSection/ArticlesSection";
 import ReportWidgets from "./ReportsSection/ReportWidgets";
+import { Link } from "react-router-dom";
 
 function HomePage() {
   const widgets = [
-    { component: HabitWidget, colSpan: "lg:col-span-2" },
-    { component: TasksWidget, colSpan: "lg:col-span-3" },
-    { component: TimeTrackerWidget, colSpan: "lg:col-span-3" },
+    {
+      component: HabitWidget,
+      colSpan: "lg:col-span-2",
+      path: "/habit-tracker",
+    },
+    { component: TasksWidget, colSpan: "lg:col-span-3", path: "/ToDo-List" },
+    {
+      component: TimeTrackerWidget,
+      colSpan: "lg:col-span-3",
+      path: "/Time-Tracker",
+    },
     { component: ReportWidgets, colSpan: "lg:col-span-2" },
     { component: ArticlesSection, colSpan: "lg:col-span-2" },
   ];
@@ -20,9 +29,15 @@ function HomePage() {
         <WelcomeCard />
       </div>
       <div className="flex flex-col lg:col-span-12 lg:grid lg:grid-cols-12 gap-5">
-        {widgets.map(({ component: Widget, colSpan }, index) => (
+        {widgets.map(({ component: Widget, colSpan, path }, index) => (
           <div key={index} className={colSpan}>
-            <Widget />
+            {path ? (
+              <Link to={path}>
+                <Widget />
+              </Link>
+            ) : (
+              <Widget />
+            )}
           </div>
         ))}
       </div>

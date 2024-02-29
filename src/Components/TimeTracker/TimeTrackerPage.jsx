@@ -9,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import articles from "./articles";
-import { useEffect, useState } from "react";
 
 function TimeTrackerPage() {
   const {

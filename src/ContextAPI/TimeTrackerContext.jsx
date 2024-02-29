@@ -32,7 +32,7 @@ export const TimeTrackerProvider = ({ children }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentArticleIndex((prevIndex) => (prevIndex + 1) % articles.length);
-    }, 15 * 60 * 1000); // 15 minutes in milliseconds
+    }, 15 * 60 * 1000);
 
     return () => clearInterval(interval);
   }, []);

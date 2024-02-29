@@ -10,7 +10,7 @@ function HomePage() {
   const widgets = [
     {
       component: HabitWidget,
-      colSpan: "lg:col-span-2",
+      colSpan: "lg:col-span-3",
       path: "/habit-tracker",
     },
     { component: TasksWidget, colSpan: "lg:col-span-3", path: "/ToDo-List" },
@@ -19,8 +19,7 @@ function HomePage() {
       colSpan: "lg:col-span-3",
       path: "/Time-Tracker",
     },
-    { component: ReportWidgets, colSpan: "lg:col-span-2" },
-    { component: ArticlesSection, colSpan: "lg:col-span-2" },
+    { component: ReportWidgets, colSpan: "lg:col-span-3" },
   ];
 
   return (
